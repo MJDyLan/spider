@@ -1,5 +1,7 @@
 package com.zimu.javacore.security;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -30,12 +32,21 @@ public class TestAES {
 	    localArrayList.add(new BasicNameValuePair("marketId", "374"));
 	    localArrayList.add(new BasicNameValuePair("password", CryptAES.AES_Encrypt(key, password)));
 	    localArrayList.add(new BasicNameValuePair("secret", "yingonline"));
-
+	   
 	    StringBuilder sb = new StringBuilder("account=x3zMUeaBrazoJK1Iqq+zxA=="
 	    		+ "&channelId=4C9EF1676B564240DF6AA684F968E85A&clientType=2&deviceNo=e205fa700a1211854044887930b5c68bf1f65c45&marketId=374&password=b9ut1UXb3kbd2Wvx1pJrpQ=="
 	    		+ "&secret=yingonline");
 	    String sign = MD5Utils.encode(sb.toString());	    
-	
+	    localArrayList.add(new BasicNameValuePair("sign", sign));
+	    try {
+			HttpUtils.sendPost(domain+loginUrl, localArrayList.toString());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    System.out.println(sign);
 
 	}
