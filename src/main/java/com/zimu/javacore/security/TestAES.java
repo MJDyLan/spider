@@ -18,6 +18,8 @@ public class TestAES {
 		String message = "x3zMUeaBrazoJK1Iqq+zxA==";
 		String key = "0C5E75A210884F61";
 		
+		String sign_right = "e9fcfb3f0a740a754af7c56de98af645";
+		
 		String domain = "https://yingapi.yirendai.com";
 		String loginUrl = "/p2puserController/p2puserLogin.action"; 
 		
@@ -27,13 +29,15 @@ public class TestAES {
 	    localArrayList.add(new BasicNameValuePair("deviceNo", "e205fa700a1211854044887930b5c68bf1f65c45"));
 	    localArrayList.add(new BasicNameValuePair("marketId", "374"));
 	    localArrayList.add(new BasicNameValuePair("password", CryptAES.AES_Encrypt(key, password)));
+	    localArrayList.add(new BasicNameValuePair("secret", "yingonline"));
 
-	    String sign = MD5Utils.encode("");
-	    
-	    localArrayList.add(new BasicNameValuePair("sign", "4C9EF1676B564240DF6AA684F968E85A"));
-	    
-		
-		System.out.println(CryptAES.AES_Encrypt(key, account));
+	    StringBuilder sb = new StringBuilder("account=x3zMUeaBrazoJK1Iqq+zxA=="
+	    		+ "&channelId=4C9EF1676B564240DF6AA684F968E85A&clientType=2&deviceNo=e205fa700a1211854044887930b5c68bf1f65c45&marketId=374&password=b9ut1UXb3kbd2Wvx1pJrpQ=="
+	    		+ "&secret=yingonline");
+	    String sign = MD5Utils.encode(sb.toString());	    
+	
+	    System.out.println(sign);
+
 	}
 
 }
