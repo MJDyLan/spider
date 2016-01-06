@@ -76,4 +76,11 @@ public class HttpUtils {
 		public static String encodeUrl(String value) throws UnsupportedEncodingException{
 			return  URLEncoder.encode(value,"UTF-8");
 		}
+		
+		public static void main(String[] args) throws UnsupportedEncodingException {
+			System.out.println(encodeUrl("account=x3zMUeaBrazoJK1Iqq+zxA=="
+	    		+ "&channelId=4C9EF1676B564240DF6AA684F968E85A&clientType=2&"
+	    		+ "deviceNo=e205fa700a1211854044887930b5c68bf1f65c45&marketId=374&password=b9ut1UXb3kbd2Wvx1pJrpQ=="
+	    		+ "&secret=yingonline"));
+		}
 }
