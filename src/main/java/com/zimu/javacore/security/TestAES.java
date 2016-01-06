@@ -10,6 +10,13 @@ import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.http.message.BasicNameValuePair;
 
 
+/** 
+ * @title 测试登录类
+ * 
+ * @author JasonChiu
+ * @time 2016年1月7日上午1:16:53
+ * @version 1.0
+ */
 public class TestAES {
 	
 

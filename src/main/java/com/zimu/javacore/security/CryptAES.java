@@ -1,14 +1,21 @@
 package com.zimu.javacore.security;
 
-
-
 import java.security.Key;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
-  
+
+
+/** 
+ * @title AES加解密工具类
+ * 
+ * 
+ * @author JasonChiu
+ * @time 2016年1月7日上午1:15:56
+ * @version 1.0
+ */
 public class CryptAES { 
   
     private static final String AESTYPE ="AES/ECB/PKCS5Padding"; 

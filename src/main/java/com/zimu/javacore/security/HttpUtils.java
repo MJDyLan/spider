@@ -1,6 +1,5 @@
 package com.zimu.javacore.security;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -18,6 +17,14 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 
+
+/** 
+ * @title 一个简单的http工具类 后面要抽象和封装
+ * 
+ * @author JasonChiu
+ * @time 2016年1月7日上午1:16:20
+ * @version 1.0
+ */
 public class HttpUtils {
 	public static String sendPost(String path,String params) throws UnsupportedEncodingException, IOException{
         URL url =new URL(path);

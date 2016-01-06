@@ -1,5 +1,12 @@
 package com.zimu.javacore.security;
 
+/** 
+ * @title 宜人贷抓取需要用到的字段，核心key是AES加解密的关键
+ * 
+ * @author JasonChiu
+ * @time 2016年1月7日上午1:18:37
+ * @version 1.0
+ */
 public class YirendaiConstants {
 	public static String URL = "https://ying.yixin.com";
 	

@@ -2,6 +2,13 @@ package com.zimu.javacore.security;
 
 import java.util.Map;
 
+/** 
+ * @title 对Map的操作封装
+ * 
+ * @author JasonChiu
+ * @time 2016年1月7日上午1:16:42
+ * @version 1.0
+ */
 public class MapUtils {
 	//将Map中的属性key按照ASCII码排序
 	public static void sortMapByKey(Map<String,Object> requestMap){

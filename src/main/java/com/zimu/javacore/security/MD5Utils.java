@@ -2,6 +2,12 @@ package com.zimu.javacore.security;
 
 import java.security.MessageDigest;
 
+/** 
+ * @title
+ * @author JasonChiu
+ * @time 2016年1月7日上午1:16:46
+ * @version 1.0
+ */
 public class MD5Utils
 {
   public static String encode(String paramString)

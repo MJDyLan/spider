@@ -5,6 +5,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+/** 
+ * @title 登录service
+ * 
+ * @author JasonChiu
+ * @time 2016年1月7日上午1:16:36
+ * @version 1.0
+ */
 public class LoginServiceImpl implements LoginService {
 	private Map<String,Object> requestMap = new HashMap<String, Object>();
 
