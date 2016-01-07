@@ -19,7 +19,7 @@ public class MapUtils {
 		
 		return null;
 	}
-	
+	//params post提交时的参数需要进行utf-8编码
 	public static void encodeValues(Map<String,Object> requestMap){
 	}
 }

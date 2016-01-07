@@ -26,6 +26,7 @@ import javax.net.ssl.TrustManager;
  * @version 1.0
  */
 public class HttpUtils {
+	
 	public static String sendPost(String path,String params) throws UnsupportedEncodingException, IOException{
         URL url =new URL(path);
         HttpURLConnection conn = (HttpsURLConnection)url.openConnection();
@@ -52,42 +53,55 @@ public class HttpUtils {
 		return result;
 	}
 
-	 public static  byte[] stream2Byte(InputStream is) throws IOException {
-		    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		    int len = 0;
-		    byte[] b = new byte[1024];
-		    while ((len = is.read(b, 0, b.length)) != -1) {                     
-		        baos.write(b, 0, len);
-		    }
-		    byte[] buffer =  baos.toByteArray();
-		    return buffer;
-     }
-	 /**
-		 * 设置https相关属性
-		 */
-		private static void buildHttpsURLConnection(HttpsURLConnection connection) {
-			try {
-				SSLContext ctx = SSLContext.getInstance("TLS");
-				ctx.init(new KeyManager[0], new TrustManager[]{new DefaultTrustManager()}, new SecureRandom());
-				SSLContext.setDefault(ctx);
-				connection.setHostnameVerifier(new HostnameVerifier() {
-					public boolean verify(String hostname, SSLSession session) {
-						return true;
-					}
-				});
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	public static byte[] stream2Byte(InputStream is) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int len = 0;
+		byte[] b = new byte[1024];
+		while ((len = is.read(b, 0, b.length)) != -1) {
+			baos.write(b, 0, len);
 		}
+		byte[] buffer = baos.toByteArray();
+		return buffer;
+	}
 
-		public static String encodeUrl(String value) throws UnsupportedEncodingException{
-			return  URLEncoder.encode(value,"UTF-8");
+	public static String sendGet(String url, String params) {
+		return null;
+	}
+
+	public static String sendGet(String url) {
+		return null;
+	}
+
+	/**
+	 * 设置https相关属性
+	 * @param connection
+	 */
+	private static void buildHttpsURLConnection(HttpsURLConnection connection) {
+		try {
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			ctx.init(new KeyManager[0],
+					new TrustManager[] { new DefaultTrustManager() },
+					new SecureRandom());
+			SSLContext.setDefault(ctx);
+			connection.setHostnameVerifier(new HostnameVerifier() {
+				public boolean verify(String hostname, SSLSession session) {
+					return true;
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		public static void main(String[] args) throws UnsupportedEncodingException {
-			System.out.println(encodeUrl("account=x3zMUeaBrazoJK1Iqq+zxA=="
-	    		+ "&channelId=4C9EF1676B564240DF6AA684F968E85A&clientType=2&"
-	    		+ "deviceNo=e205fa700a1211854044887930b5c68bf1f65c45&marketId=374&password=b9ut1UXb3kbd2Wvx1pJrpQ=="
-	    		+ "&secret=yingonline"));
-		}
+	}
+	 
+	public static String encodeUrl(String value)
+			throws UnsupportedEncodingException {
+		return URLEncoder.encode(value, "UTF-8");
+	}
+
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		System.out.println(encodeUrl("account=x3zMUeaBrazoJK1Iqq+zxA=="
+						+ "&channelId=4C9EF1676B564240DF6AA684F968E85A&clientType=2&"
+						+ "deviceNo=e205fa700a1211854044887930b5c68bf1f65c45&marketId=374&password=b9ut1UXb3kbd2Wvx1pJrpQ=="
+						+ "&secret=yingonline"));
+	}
 }
