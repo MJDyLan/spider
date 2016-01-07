@@ -21,6 +21,9 @@ import com.zimu.spider.yirendai.constant.YirendaiConstants;
  */
 public class LoginServiceImpl implements LoginService {
 
+	/**
+	 * {"result":"success","errorCode":"","msg":"","data":{"passportId":"","token":"c86a33c8b1594a1aa6fc4cd7572a3e17","name":"*吉胜","accountStatus":"1","accountType":"1","accountTypeChangeable":"","accountBalance":"0","totalAmount":"","accumulatedIncome":"","rates":"0%","isNew":"","level":"000","yrbRatio":"","inviteCodeRewardCount":"","newUserRewardCount":""}}
+	 */
 	@Override
 	public String doLogin(String account, String password) {
 		Map<String,Object> requestMap = new HashMap<String, Object>();

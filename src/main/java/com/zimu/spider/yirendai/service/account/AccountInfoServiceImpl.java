@@ -24,6 +24,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 	
 	/* (non-Javadoc)
 	 * @see com.zimu.spider.yirendai.service.account.AccountInfoService#doAccountInfo()
+	 *{"result":"success","errorCode":"","msg":"","data":{"name":"*吉胜","mobileNo":"135****2759","email":"","level":"000","accumulatedIncome":"0.00","accountBalance":"0.00","investingAmount":"0.00","investedAmountForExit":"0.00","accountStatus":"1","p2pserviceList":[]}}
 	 */
 	@Override
 	public String doAccountInfo() {
