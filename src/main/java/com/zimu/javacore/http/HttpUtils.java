@@ -1,4 +1,4 @@
-package com.zimu.javacore.security;
+package com.zimu.javacore.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -19,7 +19,7 @@ import javax.net.ssl.TrustManager;
 
 
 /** 
- * @title 一个简单的http工具类 后面要抽象和封装
+ * @title 一个简单的http工具类 后面要抽象和封装 
  * 
  * @author JasonChiu
  * @time 2016年1月7日上午1:16:20
@@ -31,7 +31,7 @@ public class HttpUtils {
         URL url =new URL(path);
         HttpURLConnection conn = (HttpsURLConnection)url.openConnection();
         buildHttpsURLConnection((HttpsURLConnection)conn);
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod(HttpMethod.POST);
         conn.setDoOutput(true);
         conn.setUseCaches(false);
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

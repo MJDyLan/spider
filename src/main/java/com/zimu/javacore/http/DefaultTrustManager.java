@@ -1,4 +1,4 @@
-package com.zimu.javacore.security;
+package com.zimu.javacore.http;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

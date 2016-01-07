@@ -1,13 +1,6 @@
 package com.zimu.javacore.security;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.TreeSet;
-
-import org.apache.commons.codec.digest.Md5Crypt;
-import org.apache.http.message.BasicNameValuePair;
+import com.zimu.javacore.http.HttpUtils;
 
 
 /** 
