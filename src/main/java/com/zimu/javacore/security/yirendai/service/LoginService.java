@@ -1,5 +1,7 @@
 package com.zimu.javacore.security.yirendai.service;
 
+import java.util.Map;
+
 /** 
  * @title
  * @author JasonChiu
@@ -8,10 +10,10 @@ package com.zimu.javacore.security.yirendai.service;
  */
 public interface LoginService {
 	
-	public void buildLoginParam(String account,String password);
+	public void buildLoginParam(Map<String,Object> requestMap,String account,String password);
 	
 	public String doLogin(String account,String password);
 	
-	public void bulidRequestParam();
+	public void bulidRequestParam(Map<String,Object> requestMap);
 
 }

@@ -10,6 +10,7 @@ import com.zimu.javacore.security.CryptAES;
 import com.zimu.javacore.security.MD5Utils;
 import com.zimu.javacore.security.yirendai.constant.YirendaiConstants;
 import com.zimu.javacore.utils.MapUtils;
+import com.zimu.javacore.utils.SignUtils;
 
 /** 
  * @title 登录service
@@ -19,15 +20,15 @@ import com.zimu.javacore.utils.MapUtils;
  * @version 1.0
  */
 public class LoginServiceImpl implements LoginService {
-	private Map<String,Object> requestMap = new HashMap<String, Object>();
 
 	@Override
 	public String doLogin(String account, String password) {
-		buildLoginParam(account, password);
-		bulidRequestParam();
+		Map<String,Object> requestMap = new HashMap<String, Object>();
+		buildLoginParam(requestMap,account, password);
+		bulidRequestParam(requestMap);
 		String result = "";
 		try {
-			result = HttpUtils.sendPost(getLoginUrl(), MapUtils.getParamStringFromMap(requestMap));
+			result = HttpUtils.sendPost(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -40,21 +41,26 @@ public class LoginServiceImpl implements LoginService {
 		return YirendaiConstants.LOGIN_URL;
 	}
 	@Override
-	public void buildLoginParam(String account, String password) {
+	public void buildLoginParam(Map<String,Object> requestMap,String account, String password) {
 		requestMap.put("account", CryptAES.AES_Encrypt(YirendaiConstants.AES_KEY, account));
 		requestMap.put("password",  CryptAES.AES_Encrypt(YirendaiConstants.AES_KEY,password));
 	}
 
 	@Override
-	public void bulidRequestParam() {
+	public void bulidRequestParam(Map<String,Object> requestMap) {
 		requestMap.put("channelId", YirendaiConstants.KEY_CHANNEL_ID);
 		requestMap.put("clientType", YirendaiConstants.KEY_CLIENT_TYPE);
 		requestMap.put("deviceNo", YirendaiConstants.KEY_DEVICE_NO);
 		requestMap.put("marketId", YirendaiConstants.KEY_MARKET_ID);
 		requestMap.put("secret", YirendaiConstants.KEY_SECRET);
-		MapUtils.sortMapByKey(requestMap);
-		requestMap.put("sigin", MD5Utils.encode(MapUtils.getParamStringFromMap(requestMap)));
-		MapUtils.encodeValues(requestMap);
+		requestMap.put("sign", SignUtils.generateSign(requestMap));
 	}
 
+	public static void main(String[] args) {
+		LoginServiceImpl login  = new LoginServiceImpl();
+		String account = "13509692759";
+		String password = "qiujisheng89";
+		
+		System.out.println(login.doLogin(account, password));
+	}
 }

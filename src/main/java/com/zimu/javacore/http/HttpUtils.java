@@ -46,10 +46,10 @@ public class HttpUtils {
         outStream.close();
         System.out.println(conn.getResponseCode()); //响应代码 200表示成功
         String result ="";
-        if(conn.getResponseCode()==200){
+        //if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();   
             result=new String(stream2Byte(inStream), "UTF-8");
-        }
+      //  }
 		return result;
 	}
 
@@ -93,13 +93,18 @@ public class HttpUtils {
 		}
 	}
 	 
-	public static String encodeUrl(String value)
-			throws UnsupportedEncodingException {
-		return URLEncoder.encode(value, "UTF-8");
+	public static String encodeUrlProperty(String value) {
+		String result = "";
+		try {
+			result = URLEncoder.encode(value, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		System.out.println(encodeUrl("account=x3zMUeaBrazoJK1Iqq+zxA=="
+		System.out.println(encodeUrlProperty("account=x3zMUeaBrazoJK1Iqq+zxA=="
 						+ "&channelId=4C9EF1676B564240DF6AA684F968E85A&clientType=2&"
 						+ "deviceNo=e205fa700a1211854044887930b5c68bf1f65c45&marketId=374&password=b9ut1UXb3kbd2Wvx1pJrpQ=="
 						+ "&secret=yingonline"));
