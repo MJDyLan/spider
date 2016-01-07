@@ -1,4 +1,4 @@
-package com.zimu.javacore.security.yirendai.service;
+package com.zimu.spider.yirendai.service;
 
 import java.util.Map;
 

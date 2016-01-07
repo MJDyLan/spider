@@ -1,4 +1,4 @@
-package com.zimu.javacore.security.yirendai.model;
+package com.zimu.spider.yirendai.model;
 
 public class UserModel {
 	private String account;

@@ -1,4 +1,4 @@
-package com.zimu.javacore.security.yirendai.constant;
+package com.zimu.spider.yirendai.constant;
 
 /** 
  * @title 宜人贷抓取需要用到的字段，核心key是AES加解密的关键
