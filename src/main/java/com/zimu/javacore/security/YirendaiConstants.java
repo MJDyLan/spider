@@ -8,20 +8,21 @@ package com.zimu.javacore.security;
  * @version 1.0
  */
 public class YirendaiConstants {
-	public static String URL = "https://ying.yixin.com";
+	public static String BASE_URL = "https://ying.yixin.com";
 	
-	public static String LOGIN = "/p2puserController/p2puserLogin.action";
+	public static String LOGIN_URL = BASE_URL+ "/p2puserController/p2puserLogin.action";
 	
 	public static String AES_KEY = "0C5E75A210884F61";
 	
-	public static String CHANNELID = "4C9EF1676B564240DF6AA684F968E85A";
+	//这些都是需要提交给服务器的参数，由于后面我们都会放在map里面，所以给这些常量加个前缀
+	public static String KEY_CHANNEL_ID = "4C9EF1676B564240DF6AA684F968E85A";
 	
-	public static String clientType = "2";
+	public static String  KEY_CLIENT_TYPE= "2";
 	//研究七生产规则
-	public static String deviceNo = "e205fa700a1211854044887930b5c68bf1f65c45";
+	public static String  KEY_DEVICE_NO= "e205fa700a1211854044887930b5c68bf1f65c45";
 	
-	public static String marketId ="374";
+	public static String  KEY_MARKET_ID="374";
 	
-	public static String secret = "yingonline";
+	public static String  KEY_SECRET= "yingonline";
 
 }

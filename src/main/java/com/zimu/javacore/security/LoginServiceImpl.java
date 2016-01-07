@@ -31,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	private String getLoginUrl(){
-		return YirendaiConstants.URL+YirendaiConstants.LOGIN;
+		return YirendaiConstants.LOGIN_URL;
 	}
 	@Override
 	public void buildLoginParam(String account, String password) {
@@ -41,11 +41,11 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public void bulidRequestParam() {
-		requestMap.put("channelId", YirendaiConstants.CHANNELID);
-		requestMap.put("clientType", YirendaiConstants.clientType);
-		requestMap.put("deviceNo", YirendaiConstants.deviceNo);
-		requestMap.put("marketId", YirendaiConstants.marketId);
-		requestMap.put("secret", YirendaiConstants.secret);
+		requestMap.put("channelId", YirendaiConstants.KEY_CHANNEL_ID);
+		requestMap.put("clientType", YirendaiConstants.KEY_CLIENT_TYPE);
+		requestMap.put("deviceNo", YirendaiConstants.KEY_DEVICE_NO);
+		requestMap.put("marketId", YirendaiConstants.KEY_MARKET_ID);
+		requestMap.put("secret", YirendaiConstants.KEY_SECRET);
 		MapUtils.sortMapByKey(requestMap);
 		requestMap.put("sigin", MD5Utils.encode(MapUtils.getParamStringFromMap(requestMap)));
 		MapUtils.encodeValues(requestMap);
