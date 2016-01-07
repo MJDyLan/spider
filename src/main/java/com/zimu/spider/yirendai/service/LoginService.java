@@ -2,13 +2,15 @@ package com.zimu.spider.yirendai.service;
 
 import java.util.Map;
 
+import com.zimu.spider.yirendai.service.base.BaseService;
+
 /** 
  * @title
  * @author JasonChiu
  * @time 2016年1月7日上午1:16:31
  * @version 1.0
  */
-public interface LoginService {
+public interface LoginService extends BaseService{
 	
 	public void buildLoginParam(Map<String,Object> requestMap,String account,String password);
 	

@@ -8,9 +8,12 @@ package com.zimu.spider.yirendai.constant;
  * @version 1.0
  */
 public class YirendaiConstants {
+	//https://yingapi.yirendai.com
 	public static String BASE_URL = "https://ying.yixin.com";
 	
 	public static String LOGIN_URL = BASE_URL+ "/p2puserController/p2puserLogin.action";
+	
+	public static String ACCOUNT_URL = BASE_URL+ "/p2paccountController/myAccountInfoV2.action";
 	
 	public static String AES_KEY = "0C5E75A210884F61";
 	

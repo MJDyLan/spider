@@ -46,10 +46,10 @@ public class HttpUtils {
         outStream.close();
         System.out.println(conn.getResponseCode()); //响应代码 200表示成功
         String result ="";
-        //if(conn.getResponseCode()==200){
+        if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();   
             result=new String(stream2Byte(inStream), "UTF-8");
-      //  }
+        }
 		return result;
 	}
 

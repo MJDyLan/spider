@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
 		bulidRequestParam(requestMap);
 		String result = "";
 		try {
-			result = HttpUtils.sendPost(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap));
+			result = HttpUtils.sendPost(getUrl(), MapUtils.getParamStringEncoder(requestMap));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -37,9 +37,7 @@ public class LoginServiceImpl implements LoginService {
 		return result;
 	}
 
-	private String getLoginUrl(){
-		return YirendaiConstants.LOGIN_URL;
-	}
+
 	@Override
 	public void buildLoginParam(Map<String,Object> requestMap,String account, String password) {
 		requestMap.put("account", CryptAES.AES_Encrypt(YirendaiConstants.AES_KEY, account));
@@ -62,5 +60,14 @@ public class LoginServiceImpl implements LoginService {
 		String password = "qiujisheng89";
 		
 		System.out.println(login.doLogin(account, password));
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.zimu.spider.yirendai.service.base.BaseService#getUrl()
+	 */
+	@Override
+	public String getUrl() {
+		return YirendaiConstants.LOGIN_URL;
 	}
 }
