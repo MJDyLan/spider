@@ -11,9 +11,11 @@ public class YirendaiConstants {
 	//https://yingapi.yirendai.com
 	public static String BASE_URL = "https://ying.yixin.com";
 	
-	public static String LOGIN_URL = BASE_URL+ "/p2puserController/p2puserLogin.action";
+	public static String LOGIN_URL = BASE_URL + "/p2puserController/p2puserLogin.action";
 	
-	public static String ACCOUNT_URL = BASE_URL+ "/p2paccountController/myAccountInfoV2.action";
+	public static String ACCOUNT_URL = BASE_URL + "/p2paccountController/myAccountInfoV2.action";
+	
+	public static String MYORDER_URL =BASE_URL + "/p2paccountController/myOrderList.action";
 	
 	public static String AES_KEY = "0C5E75A210884F61";
 	
@@ -27,5 +29,5 @@ public class YirendaiConstants {
 	public static String  KEY_MARKET_ID="374";
 	
 	public static String  KEY_SECRET= "yingonline";
-
+	
 }
