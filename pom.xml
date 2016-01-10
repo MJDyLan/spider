@@ -7,6 +7,9 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>spider Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <properties>
+		<spring.version>4.0.2.RELEASE</spring.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,6 +17,18 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>
+    
+    <dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>servlet-api</artifactId>
+		<scope>provided</scope>
+		<version>2.5</version>
+	</dependency>
     <dependency> 
          <groupId>org.apache.httpcomponents</groupId> 
           <artifactId>httpclient</artifactId> 
@@ -51,6 +66,13 @@
 			<version>2.4</version>
 		</dependency>
 		<!-- UTILS end -->
+		<!-- spring start -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- spring end -->
   </dependencies>
   <build>
     <finalName>spider</finalName>

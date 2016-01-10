@@ -7,7 +7,7 @@
 <title>这里是宜人贷抓取入口</title>
 </head>
 <body>
-<h1>欢迎您！</h1>
-<a href="/account/toLogin">我同意抓取协议</a>
+<h1>我的账号</h1>
+
 </body>
 </html>
