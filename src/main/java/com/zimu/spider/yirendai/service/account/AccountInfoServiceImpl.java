@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.zimu.javacore.http.HttpUtils;
 import com.zimu.javacore.utils.MapUtils;
+import com.zimu.javacore.utils.SignUtils;
 import com.zimu.spider.yirendai.constant.YirendaiConstants;
 
 /** 
@@ -31,13 +32,6 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		Map<String, Object> requestMap  = new HashMap<String, Object>();
 		bulidRequestParam(requestMap);
 		String result = "";
-		try {
-			result = HttpUtils.sendPost(getUrl(), MapUtils.getParamStringEncoder(requestMap));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return result;
 	}
 
@@ -50,7 +44,8 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		requestMap.put("clientType", YirendaiConstants.KEY_CLIENT_TYPE);	
 		//这里再请求其他接口的时候，是否需要重新请求登录接口，获取最新的token
 		requestMap.put("token", "c86a33c8b1594a1aa6fc4cd7572a3e17");
-		requestMap.put("sign", "40a689feb44a7b4a5b5383c647fbe96e");
+		requestMap.put("secret", YirendaiConstants.KEY_SECRET);
+		requestMap.put("sign", SignUtils.generateSign(requestMap));
 	}
 	public static void main(String[] args) {
 		AccountInfoServiceImpl accountService = new AccountInfoServiceImpl();
