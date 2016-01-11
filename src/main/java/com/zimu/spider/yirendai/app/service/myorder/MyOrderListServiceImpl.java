@@ -9,6 +9,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.zimu.javacore.http.HttpUtils;
 import com.zimu.javacore.utils.MapUtils;
 import com.zimu.javacore.utils.SignUtils;
@@ -20,6 +22,7 @@ import com.zimu.spider.yirendai.app.constant.YirendaiConstants;
  * @time 2016年1月8日上午12:15:05
  * @version 1.0
  */
+@Service("myOrderListService")
 public class MyOrderListServiceImpl implements MyOrderListService {
 
 	

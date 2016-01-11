@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>我的账号</h1>
-
+APP登录返回数据：${login_result }
 </body>
 </html>

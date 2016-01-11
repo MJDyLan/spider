@@ -8,9 +8,9 @@
 </head>
 <body>
 <h1>欢迎您使用木子技术提供的抓取接口</h1>
-<form action="/account/doLogin" method="post">
-   宜人贷账号:<input type="text" value="" name="account">
-   宜人贷密码:<input type="text" value="" name="password">
+<form action="/spider/account/doLogin" method="post">
+   宜人贷账号:<input type="text" value="" name="account"><br>
+   宜人贷密码:<input type="text" value="" name="password"><br>
   <input type="submit" value="登录">
 </form>
 </body>

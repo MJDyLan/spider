@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>欢迎您！</h1>
-<a href="/account/toLogin">我同意抓取协议</a>
+<a href="/spider/account/toLogin">我同意抓取协议</a>
 </body>
 </html>
