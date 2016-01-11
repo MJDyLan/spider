@@ -1,8 +1,8 @@
-package com.zimu.spider.yirendai.service.login;
+package com.zimu.spider.yirendai.app.service.login;
 
 import java.util.Map;
 
-import com.zimu.spider.yirendai.service.base.BaseService;
+import com.zimu.spider.yirendai.app.service.base.BaseService;
 
 /** 
  * @title

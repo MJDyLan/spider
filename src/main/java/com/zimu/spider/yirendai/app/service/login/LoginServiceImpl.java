@@ -1,4 +1,4 @@
-package com.zimu.spider.yirendai.service.login;
+package com.zimu.spider.yirendai.app.service.login;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -12,7 +12,7 @@ import com.zimu.javacore.security.CryptAES;
 import com.zimu.javacore.security.MD5Utils;
 import com.zimu.javacore.utils.MapUtils;
 import com.zimu.javacore.utils.SignUtils;
-import com.zimu.spider.yirendai.constant.YirendaiConstants;
+import com.zimu.spider.yirendai.app.constant.YirendaiConstants;
 
 /** 
  * @title 登录service
