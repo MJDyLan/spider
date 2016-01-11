@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.zimu.javacore.http.HttpUtils;
 import com.zimu.javacore.security.CryptAES;
 import com.zimu.javacore.security.MD5Utils;
@@ -19,6 +21,7 @@ import com.zimu.spider.yirendai.constant.YirendaiConstants;
  * @time 2016年1月7日上午1:16:36
  * @version 1.0
  */
+@Service("loginService")
 public class LoginServiceImpl implements LoginService {
 
 	/**

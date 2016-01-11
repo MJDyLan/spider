@@ -7,10 +7,10 @@
 <title>登录</title>
 </head>
 <body>
-<h1>欢迎您使用木子科技提供的抓取接口</h1>
+<h1>欢迎您使用木子技术提供的抓取接口</h1>
 <form action="/account/doLogin" method="post">
-   宜人贷账号:<input type="text" value="${account }" name="account">
-   宜人贷密码:<input type="text" value="${password }" name="password">
+   宜人贷账号:<input type="text" value="" name="account">
+   宜人贷密码:<input type="text" value="" name="password">
   <input type="submit" value="登录">
 </form>
 </body>
