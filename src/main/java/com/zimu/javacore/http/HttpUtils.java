@@ -46,10 +46,10 @@ public class HttpUtils {
         outStream.close();
         System.out.println(conn.getResponseCode()); //响应代码 200表示成功
         String result ="";
-        if(conn.getResponseCode()==200){
+       // if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();   
             result=new String(stream2Byte(inStream), "UTF-8");
-        }
+       // }
 		return result;
 	}
 
@@ -68,8 +68,26 @@ public class HttpUtils {
 		return null;
 	}
 
-	public static String sendGet(String url) {
-		return null;
+	public static String sendGet(String path) throws UnsupportedEncodingException, IOException{
+		URL url =new URL(path);
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod(HttpMethod.GET);
+        conn.setDoOutput(true);
+        conn.setUseCaches(false);
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Accept-Charset", "utf-8");
+        conn.setRequestProperty("Connection", "Keep-Alive");
+        conn.setRequestProperty("User-Agent", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586");
+        conn.setConnectTimeout(5*1000);
+        conn.setReadTimeout(5*1000);
+	
+        System.out.println(conn.getResponseCode()); //响应代码 200表示成功
+        String result ="";
+       // if(conn.getResponseCode()==200){
+            InputStream inStream = conn.getInputStream();   
+            result=new String(stream2Byte(inStream), "UTF-8");
+       // }
+		return result;
 	}
 
 	/**

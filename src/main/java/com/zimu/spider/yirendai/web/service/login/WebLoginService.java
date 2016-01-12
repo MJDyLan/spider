@@ -1,5 +1,7 @@
 package com.zimu.spider.yirendai.web.service.login;
 
+import java.util.Map;
+
 import com.zimu.spider.yirendai.app.service.base.BaseService;
 
 /** 
@@ -9,5 +11,10 @@ import com.zimu.spider.yirendai.app.service.base.BaseService;
  * @version 1.0
  */
 public interface WebLoginService extends BaseService{
+	
+	public String doLogin(String username,String password,String authcode);
+	
+	public void buildLoginParam(Map<String,Object> requestMap,String username,String password,String authcode);
+
 
 }

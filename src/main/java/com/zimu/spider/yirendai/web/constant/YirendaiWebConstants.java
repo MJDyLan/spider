@@ -11,8 +11,11 @@ package com.zimu.spider.yirendai.web.constant;
 public final class YirendaiWebConstants {
 	//验证码url：https://login.yirendai.com/auth/captcha.random 
 	public static String BASE_LOGIN_URL = "https://login.yirendai.com";
-	public static String AUTH_CODE_URL = "/auth/captcha.random";
-	public static String LOGIN_SUBMIT_URL = "/auth/loginsubmit";
+	public static String AUTH_CODE_URL = BASE_LOGIN_URL +"/auth/captcha.random";
+	public static String LOGIN_SUBMIT_URL = BASE_LOGIN_URL+ "/auth/loginsubmit";
+	
+	public static String BASE_URL = "http://www.yirendai.com";
+	public static String BASE_CMSHEADER_URL = BASE_URL+"/home/cmsHeaderInfo";
 	
 	
 	
