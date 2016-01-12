@@ -7,12 +7,15 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.zimu.javacore.http.HttpUtils;
 import com.zimu.javacore.security.CryptAES;
 import com.zimu.javacore.security.MD5Utils;
+import com.zimu.javacore.utils.JsonMapper;
 import com.zimu.javacore.utils.MapUtils;
 import com.zimu.javacore.utils.SignUtils;
 import com.zimu.spider.yirendai.app.constant.YirendaiConstants;
+import com.zimu.spider.yirendai.app.model.AccountUserInfoResp;
 
 /** 
  * @title 登录service
@@ -40,6 +43,10 @@ public class LoginServiceImpl implements LoginService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//jsonMapper的使用，将字符串转成对象
+		JsonMapper mapper = JsonMapper.nonEmptyMapper(); 
+		AccountUserInfoResp accountUserInfoResp = mapper.fromJson(result, AccountUserInfoResp.class);
+		System.out.println(accountUserInfoResp.toString());
 		return result;
 	}
 

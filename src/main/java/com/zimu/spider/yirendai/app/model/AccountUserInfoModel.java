@@ -1,7 +1,6 @@
 package com.zimu.spider.yirendai.app.model;
 
-
-public class AccountUserInfoModel extends BaseResp
+public class AccountUserInfoModel
 {
 	private String accountBalance;
 	private String accountStatus;
@@ -13,45 +12,63 @@ public class AccountUserInfoModel extends BaseResp
 	private String mobileNo;
 	private String name;
 	private String token;
+	private String accountType;	
+	private String passportId;
+
+	public String getPassportId() {
+		return passportId;
+	}
+
+	public void setPassportId(String passportId) {
+		this.passportId = passportId;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
 
 	public String getAccountBalance() {
-		return this.accountBalance;
+		return accountBalance;
 	}
 
 	public String getAccountStatus() {
-		return this.accountStatus;
+		return accountStatus;
 	}
 
 	public String getAccumulatedIncome() {
-		return this.accumulatedIncome;
+		return accumulatedIncome;
 	}
 
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
 
 	public String getInvestedAmountForExit() {
-		return this.investedAmountForExit;
+		return investedAmountForExit;
 	}
 
 	public String getInvestingAmount() {
-		return this.investingAmount;
+		return investingAmount;
 	}
 
 	public String getLevel() {
-		return this.level;
+		return level;
 	}
 
 	public String getMobileNo() {
-		return this.mobileNo;
+		return mobileNo;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public String getToken() {
-		return this.token;
+		return token;
 	}
 
 	public void setAccountBalance(String accountBalance) {

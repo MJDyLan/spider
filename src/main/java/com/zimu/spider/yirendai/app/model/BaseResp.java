@@ -1,4 +1,7 @@
 package com.zimu.spider.yirendai.app.model;
+
+import java.io.Serializable;
+
 /**
  * 
  * @title 宜人贷抓取接口响应的公共字段
@@ -7,8 +10,12 @@ package com.zimu.spider.yirendai.app.model;
  * @time 2016年1月11日上午12:55:16
  * @version 1.0
  */
-public class BaseResp {
+public class BaseResp implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3242090546381357626L;
 	private String errorCode;
 	private String msg;
 	private String result;
