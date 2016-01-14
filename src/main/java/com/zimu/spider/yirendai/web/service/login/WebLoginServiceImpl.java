@@ -37,16 +37,14 @@ public class WebLoginServiceImpl implements WebLoginService {
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildLoginParam(requestMap, username, password, authcode);
 		String result = "";
-		String result2 = "";
 		try {
 			result = HttpUtils.sendPost(getUrl(), MapUtils.getParamStringEncoder(requestMap));
-			result2 = HttpUtils.sendGet(YirendaiWebConstants.BASE_CMSHEADER_URL);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return result2;
+		return result;
 	}
 
 	@Override
