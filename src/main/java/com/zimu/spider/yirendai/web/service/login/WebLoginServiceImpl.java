@@ -57,4 +57,6 @@ public class WebLoginServiceImpl implements WebLoginService {
 	    requestMap.put("redirectURI", "http://www.yirendai.com/");
 	    requestMap.put("rememberMe", "rememberMe");
 	}
+	
+	
 }

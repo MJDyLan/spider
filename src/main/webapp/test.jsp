@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>这里是宜人贷抓取入口</title>
+<title>test</title>
 </head>
 <body>
-<h1>我的账号</h1>
-APP登录返回数据：${login_result }
+<h1>test</h1>
+
 </body>
 </html>
