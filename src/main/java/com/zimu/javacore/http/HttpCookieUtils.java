@@ -3,9 +3,7 @@
  */
 package com.zimu.javacore.http;
 
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 
 /**
@@ -15,7 +13,6 @@ import java.net.URL;
  * @version 1.0
  */
 public class HttpCookieUtils {
-	
  
 	/**
 	 * 从urlConnection请求中取得cookie值，多个cookie会合并，主要用于登录后请求

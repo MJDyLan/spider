@@ -18,6 +18,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 
+import com.zimu.javacore.io.MyInputStreamUtils;
+
 
 /** 
  * @title 一个简单的http工具类 后面要抽象和封装 
@@ -48,7 +50,7 @@ public class HttpUtils {
         String result ="";
         if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();   
-            result=new String(stream2Byte(inStream), "UTF-8");
+            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
         }else if(conn.getResponseCode() == 302){
         	InputStream inStream = conn.getInputStream();
         	String location = conn.getHeaderField("Location");
@@ -82,7 +84,7 @@ public class HttpUtils {
         if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();
             String cookie2 = HttpCookieUtils.getCookieValue(conn);// 取到所用的Cookie
-            result=new String(stream2Byte(inStream), "UTF-8");
+            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
         }else if(conn.getResponseCode() == 302){
         	InputStream inStream = conn.getInputStream();
         	String cookie1 = HttpCookieUtils.getCookieValue(conn);// 取到所用的Cookie
@@ -90,16 +92,7 @@ public class HttpUtils {
         }
 		return result;
 	}
-	public static byte[] stream2Byte(InputStream is) throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		int len = 0;
-		byte[] b = new byte[1024];
-		while ((len = is.read(b, 0, b.length)) != -1) {
-			baos.write(b, 0, len);
-		}
-		byte[] buffer = baos.toByteArray();
-		return buffer;
-	}
+	
 
 	public static String sendGet(String path, String cookie)throws UnsupportedEncodingException, IOException {
 		URL url =new URL(path);
@@ -119,7 +112,7 @@ public class HttpUtils {
         String result ="";
        // if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();   
-            result=new String(stream2Byte(inStream), "UTF-8");
+            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
        // }
 		return result;
 	}
@@ -142,7 +135,7 @@ public class HttpUtils {
         String result ="";
        // if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();   
-            result=new String(stream2Byte(inStream), "UTF-8");
+            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
        // }
 		return result;
 	}
