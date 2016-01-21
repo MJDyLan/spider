@@ -14,7 +14,11 @@ public interface WebLoginService extends BaseService{
 	
 	public String doLogin(String username,String password,String authcode);
 	
-	public void buildLoginParam(Map<String,Object> requestMap,String username,String password,String authcode);
+	public String doLogin2(String username,String password,String authcode,String cookie);
 
+	
+	public void buildLoginParam(Map<String,Object> requestMap,String username,String password,String authcode);
+	
+	public String toLogin();
 
 }

@@ -1,18 +1,34 @@
+/**
+ * 
+ */
 package com.zimu.javacore.http;
 
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.net.URL;
 
+
+/**
+ * @author jasonChiu
+ * @title
+ * @time 2016年1月14日下午3:57:59
+ * @version 1.0
+ */
 public class HttpCookieUtils {
-
-	public static String getCookie(HttpURLConnection conn){
-		//获取cookie
-		Map<String,List<String>> map=conn.getHeaderFields();
-		List<String> cookies = map.get("Set-Cookie");
-		System.out.println("cookies="+cookies.toString());
-		return cookies.toString();		
+	
+ 
+	/**
+	 * 从urlConnection请求中取得cookie值，多个cookie会合并，主要用于登录后请求
+	 */
+	public static String getCookieValue(final HttpURLConnection urlConnection) {
+		String cookieStr = "";
+		String key;
+		for (int i = 1; (key = urlConnection.getHeaderFieldKey(i)) != null; i++) {
+			if (key.equalsIgnoreCase("Set-cookie")) {
+				final String cookieVal = urlConnection.getHeaderField(i);
+				cookieStr += cookieVal + ";";
+			}
+		}
+		return cookieStr;
 	}
 }

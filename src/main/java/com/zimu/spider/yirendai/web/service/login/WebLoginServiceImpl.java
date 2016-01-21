@@ -47,6 +47,19 @@ public class WebLoginServiceImpl implements WebLoginService {
 		return result;
 	}
 
+	public String toLogin(){
+		//String url = "https://login.yirendai.com/auth/tologin?redirectURI=http://www.yirendai.com/";
+		String authcode_url = YirendaiWebConstants.AUTH_CODE_URL;
+		String cookie = "";
+		try {
+			 cookie = HttpUtils.sendGetImage(authcode_url);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return cookie;
+	}
 	@Override
 	public void buildLoginParam(Map<String, Object> requestMap, String username,
 			String password,String authcode) {
@@ -54,9 +67,26 @@ public class WebLoginServiceImpl implements WebLoginService {
 	    requestMap.put("password", password);
 	    requestMap.put("authcode", authcode);
 	    requestMap.put("fromSite", "YRD");
-	    requestMap.put("redirectURI", "http://www.yirendai.com/");
-	    requestMap.put("rememberMe", "rememberMe");
+	    requestMap.put("redirectURI", "https://www.yirendai.com/");
+	    requestMap.put("rememberMe", "0");
 	}
 	
-	
+	/* (non-Javadoc)
+	 * @see com.zimu.spider.yirendai.web.service.login.WebLoginService#doLogin2(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public String doLogin2(String username, String password, String authcode,String cookie) {
+		
+		Map<String,Object> requestMap = new HashMap<String, Object>();
+		buildLoginParam(requestMap, username, password, authcode);
+		String result = "";
+		try {
+			result = HttpUtils.sendPost(getUrl(), MapUtils.getParamStringEncoder(requestMap),cookie);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

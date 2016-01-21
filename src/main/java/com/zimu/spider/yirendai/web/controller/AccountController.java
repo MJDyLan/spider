@@ -26,6 +26,9 @@ public class AccountController {
 	@Autowired
 	private WebLoginService webLoginService;
 	
+	
+	private  static String cookieStr = "";
+	
 	@RequestMapping("toLogin")
 	public String toLogin(){
 		return "login";
@@ -46,13 +49,17 @@ public class AccountController {
 	public ModelAndView toWebLogin(){
 		ModelAndView modelAndView = new ModelAndView("login2");  
 		//生成验证码图片
-		String authImage = YirendaiWebConstants.AUTH_CODE_URL;
-		modelAndView.addObject("authImage", authImage);  
+		//String authImage = YirendaiWebConstants.AUTH_CODE_URL;
+		//modelAndView.addObject("authImage", authImage); 
+		//String result = webLoginService.toLogin();
+		cookieStr = webLoginService.toLogin();
+		modelAndView.addObject("cookieStr", cookieStr);  
 	    return modelAndView;  
 	}
 	@RequestMapping("doWebLogin")
-	public String doWebLogin(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("authcode") String authcode){
-		System.out.println(webLoginService.doLogin(username, password, authcode));
+	public String doWebLogin(@RequestParam("username") String username,@RequestParam("password") String password,
+			@RequestParam("authcode") String authcode){
+		System.out.println(webLoginService.doLogin2(username, password, authcode,cookieStr));
 	    return "account";  
 	}
 }
