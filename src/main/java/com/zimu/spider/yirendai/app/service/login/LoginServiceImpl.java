@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.http.HttpUtils;
 import com.zimu.javacore.security.CryptAES;
 import com.zimu.javacore.security.MD5Utils;
@@ -37,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
 		bulidRequestParam(requestMap);
 		String result = "";
 		try {
-			result = HttpUtils.sendPost(getUrl(), MapUtils.getParamStringEncoder(requestMap));
+			result = HttpPostUtils.sendPostReq(getUrl(), MapUtils.getParamStringEncoder(requestMap),true);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

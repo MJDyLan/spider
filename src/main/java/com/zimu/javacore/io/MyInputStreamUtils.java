@@ -26,7 +26,13 @@ public class MyInputStreamUtils {
 		byte[] buffer = baos.toByteArray();
 		return buffer;
 	}
-	
+	/**
+	 * @title 将inputStream转成文件，保存的指定路径
+	 * 
+	 * @param inputStream
+	 * @param path
+	 * @param fileName
+	 */
 	public static void stream2File(InputStream inputStream,String path,String fileName){
 		
         byte[] data = new byte[1024];  

@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zimu.javacore.http.CookieManager;
 import com.zimu.spider.yirendai.app.model.UserModel;
 import com.zimu.spider.yirendai.app.service.account.AccountInfoService;
 import com.zimu.spider.yirendai.app.service.login.LoginService;
 import com.zimu.spider.yirendai.app.service.myorder.MyOrderListService;
-import com.zimu.spider.yirendai.web.constant.YirendaiWebConstants;
 import com.zimu.spider.yirendai.web.service.login.WebLoginService;
 
 @Controller
@@ -40,26 +40,24 @@ public class AccountController {
 		
 		String login_result = loginService.doLogin(account, password);
 		
-		//String account_result = accountInfoService.doAccountInfo();
 		ModelAndView modelAndView = new ModelAndView("account");  
 	    modelAndView.addObject("login_result", login_result);  
 	    return modelAndView;  
 	}
 	@RequestMapping("toWebLogin")
 	public ModelAndView toWebLogin(){
-		ModelAndView modelAndView = new ModelAndView("login2");  
-		//生成验证码图片
-		//String authImage = YirendaiWebConstants.AUTH_CODE_URL;
-		//modelAndView.addObject("authImage", authImage); 
-		//String result = webLoginService.toLogin();
-		cookieStr = webLoginService.toLogin();
-		modelAndView.addObject("cookieStr", cookieStr);  
+		ModelAndView modelAndView = new ModelAndView("weblogin");
+		//请求验证码，获取cookie，放入到本地，用于下一次请求
+		webLoginService.generateAuthCode();
 	    return modelAndView;  
 	}
 	@RequestMapping("doWebLogin")
-	public String doWebLogin(@RequestParam("username") String username,@RequestParam("password") String password,
+	public ModelAndView doWebLogin(@RequestParam("username") String username,@RequestParam("password") String password,
 			@RequestParam("authcode") String authcode){
-		System.out.println(webLoginService.doLogin2(username, password, authcode,cookieStr));
-	    return "account";  
+		webLoginService.doLogin(username, password, authcode, true);
+        String cmsHeadInfo =  webLoginService.getCmsHeaderInfo();
+        ModelAndView modelAndView = new ModelAndView("webHead");
+        modelAndView.addObject("cmsHeadInfo", cmsHeadInfo);
+		return modelAndView;  
 	}
 }

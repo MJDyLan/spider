@@ -5,13 +5,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.zimu.javacore.http.CookieManager;
+import com.zimu.javacore.http.HttpGetUtils;
+import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.http.HttpUtils;
-import com.zimu.javacore.utils.JsonMapper;
 import com.zimu.javacore.utils.MapUtils;
-import com.zimu.spider.yirendai.app.constant.YirendaiConstants;
-import com.zimu.spider.yirendai.app.model.AccountUserInfoResp;
 import com.zimu.spider.yirendai.web.constant.YirendaiWebConstants;
 
 /** 
@@ -24,9 +26,8 @@ import com.zimu.spider.yirendai.web.constant.YirendaiWebConstants;
 @Service("webLoginService")
 public class WebLoginServiceImpl implements WebLoginService {
 
-	/* (non-Javadoc)
-	 * @see com.zimu.spider.yirendai.service.base.BaseService#getUrl()
-	 */
+	private static final Logger logger = LoggerFactory.getLogger(WebLoginServiceImpl.class);
+	
 	@Override
 	public String getUrl() {
 		return YirendaiWebConstants.LOGIN_SUBMIT_URL;
@@ -34,31 +35,14 @@ public class WebLoginServiceImpl implements WebLoginService {
 
 	@Override
 	public String doLogin(String username, String password, String authcode) {
-		Map<String,Object> requestMap = new HashMap<String, Object>();
-		buildLoginParam(requestMap, username, password, authcode);
-		String result = "";
-		try {
-			result = HttpUtils.sendPost(getUrl(), MapUtils.getParamStringEncoder(requestMap));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
+		return doLogin(username, password, authcode, false);
 	}
 
-	public String toLogin(){
-		//String url = "https://login.yirendai.com/auth/tologin?redirectURI=http://www.yirendai.com/";
+	@Override
+	public void generateAuthCode(){
 		String authcode_url = YirendaiWebConstants.AUTH_CODE_URL;
-		String cookie = "";
-		try {
-			 cookie = HttpUtils.sendGetImage(authcode_url);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return cookie;
+		HttpGetUtils.sendGetFileReq(authcode_url, true);
+        System.err.println("请求完验证码的cookie="+CookieManager.getCookie());
 	}
 	@Override
 	public void buildLoginParam(Map<String, Object> requestMap, String username,
@@ -71,22 +55,34 @@ public class WebLoginServiceImpl implements WebLoginService {
 	    requestMap.put("rememberMe", "0");
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.zimu.spider.yirendai.web.service.login.WebLoginService#doLogin2(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-	 */
 	@Override
-	public String doLogin2(String username, String password, String authcode,String cookie) {
+	public String doLogin(String username, String password, String authcode,boolean needCookie) {
 		
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildLoginParam(requestMap, username, password, authcode);
 		String result = "";
 		try {
-			result = HttpUtils.sendPost(getUrl(), MapUtils.getParamStringEncoder(requestMap),cookie);
+			result = HttpPostUtils.sendPostReq(getUrl(), MapUtils.getParamStringEncoder(requestMap), true, true);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	
+	@Override
+	public String getCmsHeaderInfo() {
+		try {
+			return HttpGetUtils.sendGetStrReq(YirendaiWebConstants.CMSHEADER_URL, false, true);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

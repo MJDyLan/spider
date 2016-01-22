@@ -1,5 +1,7 @@
 package com.zimu.spider.yirendai.web.service.login;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.zimu.spider.yirendai.app.service.base.BaseService;
@@ -14,11 +16,11 @@ public interface WebLoginService extends BaseService{
 	
 	public String doLogin(String username,String password,String authcode);
 	
-	public String doLogin2(String username,String password,String authcode,String cookie);
+	public String doLogin(String username,String password,String authcode,boolean needCookie);
 
-	
 	public void buildLoginParam(Map<String,Object> requestMap,String username,String password,String authcode);
 	
-	public String toLogin();
-
+	public void generateAuthCode();
+	
+	public String getCmsHeaderInfo();
 }

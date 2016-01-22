@@ -15,7 +15,7 @@ public final class YirendaiWebConstants {
 	public static String LOGIN_SUBMIT_URL = BASE_LOGIN_URL+ "/auth/loginsubmit";
 	
 	public static String BASE_URL = "https://www.yirendai.com";
-	public static String BASE_CMSHEADER_URL = BASE_URL+"/home/cmsHeaderInfo";
+	public static String CMSHEADER_URL = BASE_URL+"/home/cmsHeaderInfo";
 	
 	
 	
