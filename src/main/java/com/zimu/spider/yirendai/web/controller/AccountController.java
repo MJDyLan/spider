@@ -26,12 +26,9 @@ public class AccountController {
 	@Autowired
 	private WebLoginService webLoginService;
 	
-	
-	private  static String cookieStr = "";
-	
 	@RequestMapping("toLogin")
 	public String toLogin(){
-		return "login";
+		return "yirendai/login";
 	}
 	@RequestMapping("doLogin")
 	public ModelAndView doLogin(@ModelAttribute("userModel") UserModel userModel){
@@ -40,13 +37,13 @@ public class AccountController {
 		
 		String login_result = loginService.doLogin(account, password);
 		
-		ModelAndView modelAndView = new ModelAndView("account");  
+		ModelAndView modelAndView = new ModelAndView("yirendai/account");  
 	    modelAndView.addObject("login_result", login_result);  
 	    return modelAndView;  
 	}
 	@RequestMapping("toWebLogin")
 	public ModelAndView toWebLogin(){
-		ModelAndView modelAndView = new ModelAndView("weblogin");
+		ModelAndView modelAndView = new ModelAndView("yirendai/weblogin");
 		//请求验证码，获取cookie，放入到本地，用于下一次请求
 		webLoginService.generateAuthCode();
 	    return modelAndView;  
@@ -56,7 +53,7 @@ public class AccountController {
 			@RequestParam("authcode") String authcode){
 		webLoginService.doLogin(username, password, authcode, true);
         String cmsHeadInfo =  webLoginService.getCmsHeaderInfo();
-        ModelAndView modelAndView = new ModelAndView("webHead");
+        ModelAndView modelAndView = new ModelAndView("yirendai/webHead");
         modelAndView.addObject("cmsHeadInfo", cmsHeadInfo);
 		return modelAndView;  
 	}
