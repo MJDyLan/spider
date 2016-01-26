@@ -36,14 +36,13 @@ public class HttpPostUtils {
         outStream.write(params.getBytes());
         outStream.flush();
         outStream.close();
-		//保存cookie
-		CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
-	    
-        String result ="";
+		String result ="";
         if(conn.getResponseCode()==200){
-            InputStream inStream = conn.getInputStream();   
+            InputStream inStream = conn.getInputStream();
+          //保存cookie
+    		CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
             result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
-        }else if(conn.getResponseCode() ==302){
+        }else if(conn.getResponseCode() >300){
         	String location = conn.getHeaderField("Location");
         	//发现跳转重新设置cookie
         	CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
