@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.zimu.javacore.http.CookieManager;
+import com.zimu.javacore.http.HttpGetUtils;
 import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.utils.MapUtils;
 import com.zimu.spider.fbank.web.constant.FbankWebConstant;

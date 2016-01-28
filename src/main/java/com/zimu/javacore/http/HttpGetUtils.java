@@ -42,7 +42,7 @@ public class HttpGetUtils {
         if(conn.getResponseCode()==200){
             InputStream inStream = conn.getInputStream();   
             result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
-        }else if(conn.getResponseCode() ==302){
+        }else if(conn.getResponseCode() > 300){
         	String location = conn.getHeaderField("Location");
         	result = sendGetStrReq(location,isHttps,true);
         }
