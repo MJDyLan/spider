@@ -26,8 +26,8 @@ public class FbankAPPLoginServiceImpl implements FbankAPPLoginService {
 
 	@Override
 	public void buildLoginParam(Map<String, Object> map,String username, String password, String authcode) {
-		     map.put("mobile", "13349910969");
-	         map.put("password", "qiujisheng89");
+		     map.put("mobile", username);
+	         map.put("password", password);
 	         map.put("version", 241);
 	         map.put("platform", "android");
 	         map.put("channel", "guanwang");
@@ -65,6 +65,7 @@ public class FbankAPPLoginServiceImpl implements FbankAPPLoginService {
 
 	public static void main(String[] args) {
 		FbankAPPLoginService f = new FbankAPPLoginServiceImpl();
-		f.doLogin("13349910969", "qiujisheng89");		
+		//f.doLogin("13349910969", "qiujisheng89");
+		f.doLogin("15817448495", "2109311wl");
 	}
 }

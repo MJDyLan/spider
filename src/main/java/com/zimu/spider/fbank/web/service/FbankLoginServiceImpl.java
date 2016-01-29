@@ -24,7 +24,7 @@ public class FbankLoginServiceImpl implements FbankLoginService {
 	public void buildLoginParam(Map<String, Object> requestMap,String username, String password, String authcode) {
 		requestMap.put("userName", username);
 		requestMap.put("password", password);
-		requestMap.put("page", "gw");
+		requestMap.put("returnUrl", "");
 	}
 
 	@Override
@@ -50,6 +50,6 @@ public class FbankLoginServiceImpl implements FbankLoginService {
 
 	public static void main(String[] args) {
 		FbankLoginService f = new FbankLoginServiceImpl();
-		f.doLogin("13349910969", "qiujisheng89");		
+		f.doLogin("13349910969", "qiujisheng89");
 	}
 }

@@ -41,6 +41,7 @@ public class HttpPostUtils {
             InputStream inStream = conn.getInputStream();
           //保存cookie
     		CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
+    		System.err.println("提交表单后200的cookie="+CookieManager.getCookie());
             result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
         }else if(conn.getResponseCode() >300){
         	String location = conn.getHeaderField("Location");
