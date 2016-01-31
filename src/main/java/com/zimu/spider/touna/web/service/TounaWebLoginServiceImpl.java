@@ -6,8 +6,6 @@
  */
 package com.zimu.spider.touna.web.service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.security.MD5Utils;
 import com.zimu.javacore.utils.MapUtils;
-import com.zimu.spider.touna.web.constant.TounaWebConstant;
+import com.zimu.spider.base.constant.WebUrlConstant;
 
 /**
  * @author jasonChiu
@@ -25,15 +23,14 @@ import com.zimu.spider.touna.web.constant.TounaWebConstant;
  * @time 2016年1月22日下午2:15:06
  * @version 1.0
  */
-@Service("TounaWebLoginService")
+@Service("tounaWebLoginService")
 public class TounaWebLoginServiceImpl implements TounaWebLoginService{
 
 	
 	@Override
-	public String getUrl() {
-		return TounaWebConstant.LOGIN_URL;
+	public String getLoginUrl() {
+		return WebUrlConstant.TOUNA_LOGIN_URL;
 	}
-
 
 	@Override
 	public void buildLoginParam(Map<String, Object> requestMap,
@@ -49,18 +46,22 @@ public class TounaWebLoginServiceImpl implements TounaWebLoginService{
 	public String doLogin(String username,String password,String authcode) {
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildLoginParam(requestMap,username, password,authcode);
-		String result = "";
-		try {
-			result = HttpPostUtils.sendPostReq(getUrl(), MapUtils.getParamStringEncoder(requestMap), true);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), true);
 		return result;
 	}
-	public static void main(String[] args) {
-		//6c09d194a1dbe43f4df522546e6c2d8b
-		System.out.println(MD5Utils.encode("qiujisheng89"));
+
+	@Override
+	public void buildLoginParam(Map<String, Object> requestMap,String username, String password) {
+		
+	}
+
+	@Override
+	public void buildRequestParam(Map<String, Object> requestMap) {
+		
+	}
+
+	@Override
+	public String toModel(String resultStr) {
+		return resultStr;
 	}
 }

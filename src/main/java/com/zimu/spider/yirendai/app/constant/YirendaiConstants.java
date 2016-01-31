@@ -8,15 +8,6 @@ package com.zimu.spider.yirendai.app.constant;
  * @version 1.0
  */
 public class YirendaiConstants {
-	//https://yingapi.yirendai.com
-	public static String BASE_URL = "https://ying.yixin.com";
-	
-	public static String LOGIN_URL = BASE_URL + "/p2puserController/p2puserLogin.action";
-	
-	public static String ACCOUNT_URL = BASE_URL + "/p2paccountController/myAccountInfoV2.action";
-	
-	public static String MYORDER_URL =BASE_URL + "/p2paccountController/myOrderList.action";
-	
 	public static String AES_KEY = "0C5E75A210884F61";
 	
 	//这些都是需要提交给服务器的参数，由于后面我们都会放在map里面，所以给这些常量加个前缀

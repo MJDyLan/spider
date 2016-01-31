@@ -6,7 +6,7 @@
  */
 package com.zimu.spider.dianrong.web.service;
 
-import java.util.Map;
+import com.zimu.spider.base.inter.IBaseAccountInfoService;
 
 /**
  * @author jasonChiu
@@ -14,12 +14,6 @@ import java.util.Map;
  * @time 2016年1月22日下午5:50:01
  * @version 1.0
  */
-public interface DianrongAccountService {
-	
-	public String getUrl();
-	
-	public void buildRequestParam(Map<String,Object> requestMap);
-	
-	public String doAccount();
+public interface DianrongWebAccountService extends IBaseAccountInfoService<String>{
 
 }

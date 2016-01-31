@@ -6,19 +6,15 @@
  */
 package com.zimu.spider.dianrong.web.service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.zimu.javacore.http.HttpGetUtils;
 import com.zimu.javacore.http.HttpPostUtils;
-import com.zimu.javacore.security.MD5Utils;
 import com.zimu.javacore.utils.MapUtils;
-import com.zimu.spider.dianrong.web.constant.DianrongWebConstant;
+import com.zimu.spider.base.constant.WebUrlConstant;
+import com.zimu.spider.dianrong.web.model.DianrongWebLoginModel;
 
 /**
  * @author jasonChiu
@@ -27,46 +23,40 @@ import com.zimu.spider.dianrong.web.constant.DianrongWebConstant;
  * @version 1.0
  */
 @Service("dianrongWebLoginService")
-public class DianrongWebLoginServiceImpl implements DianrongWebLoginService{
-
-	private static  DianrongAccountService dianrongAccountService;
+public class DianrongWebLoginServiceImpl implements DianrongWebLoginService<DianrongWebLoginModel>{
 	
 	@Override
-	public String getUrl() {
-		return DianrongWebConstant.LOGIN_URL;
+	public String getLoginUrl() {
+		return WebUrlConstant.DIANRONG_LOGIN_URL;
+	}
+	
+	@Override
+	public void buildLoginParam(Map<String, Object> requestMap,String username, String password) {
+		this.buildLoginParam(requestMap, username, password,"");
 	}
 
 
 	@Override
 	public void buildLoginParam(Map<String, Object> requestMap,String username, String password, String authcode) {
 		requestMap.put("identity", username);
-		requestMap.put("password", password);
+		requestMap.put("password", password);	
+	}
+
+	@Override
+	public void buildRequestParam(Map<String, Object> requestMap) {
+		
+	}
+
+	@Override
+	public DianrongWebLoginModel toModel(String resultStr) {
+		return DianrongWebLoginModel.getInstanceByJson(resultStr);
 	}
 
 	@Override
 	public String doLogin(String username,String password,String authcode) {
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildLoginParam(requestMap,username, password,authcode);
-		String result = "";
-		try {
-			result = HttpPostUtils.sendPostReq(getUrl(), MapUtils.getParamStringEncoder(requestMap), true);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), true);
 		return result;
-	}
-	public static void main(String[] args) throws UnsupportedEncodingException, IOException {
-		
-		DianrongWebLoginService dianrong = new DianrongWebLoginServiceImpl();
-		System.err.println(dianrong.doLogin("13349910969", "qiujisheng89"));
-		String url = "https://www.dianrong.com/api/v2/user/profile";
-		System.err.println(HttpGetUtils.sendGetStrReq(url, true, true));
-	}
-
-	@Override
-	public String doLogin(String username, String password) {
-		return this.doLogin(username, password,"");
 	}
 }

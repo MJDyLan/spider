@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zimu.spider.touna.web.service.TounaAccountService;
+import com.zimu.spider.touna.web.service.TounaWebAccountService;
 import com.zimu.spider.touna.web.service.TounaWebLoginService;
 
 /**
@@ -27,7 +27,7 @@ public class LoginController {
 	@Autowired
 	private TounaWebLoginService tounaWebLoginService;
 	@Autowired
-	private TounaAccountService tounaAccountService;
+	private TounaWebAccountService tounaAccountService;
 	
 	@RequestMapping("toLogin")
 	public String toLogin(){
@@ -38,7 +38,7 @@ public class LoginController {
 			@RequestParam("authcode") String authcode){
 		ModelAndView model = new ModelAndView("touna/account");
 		String result = tounaWebLoginService.doLogin(username, password, authcode);
-		String accoutInfo = tounaAccountService.doOneshop();
+		String accoutInfo = tounaAccountService.doAccount();
 		model.addObject("login_result", result);
 		model.addObject("account_result", accoutInfo);
 		return model;

@@ -15,11 +15,5 @@ package com.zimu.spider.touna.web.constant;
  * @version 1.0
  */
 public final class TounaWebConstant {
-	
-	public static String BASE_URL = "https://www.touna.cn";
-	
-	public static String LOGIN_URL = BASE_URL + "/auth.do";
-	
-	public static String ONESHOP_URL = BASE_URL+ "/account.oneshop.do";
 
 }

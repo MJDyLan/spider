@@ -1,15 +1,7 @@
 package com.zimu.spider.fbank.app.service;
 
-import java.util.Map;
+import com.zimu.spider.base.inter.IBaseLoginSevice;
 
-public interface FbankAPPLoginService {
-	
-    public String getUrl();
-	
-	public void buildLoginParam(Map<String,Object> requestMap,String username,String password,String authcode);
-
-	public String doLogin(String username,String password,String authcode);
-	
-	public String doLogin(String username,String password);
+public interface FbankAPPLoginService extends IBaseLoginSevice<String>{
 
 }

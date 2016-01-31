@@ -1,5 +1,7 @@
 package com.zimu.spider.dianrong.web.model;
 
+import com.zimu.javacore.utils.JsonMapper;
+
 /**
  * @author jasonChiu
  * @title
@@ -7,5 +9,10 @@ package com.zimu.spider.dianrong.web.model;
  * @version 1.0
  */
 public class DianrongWebLoginModel {
+	
+	public static DianrongWebLoginModel getInstanceByJson(String resultStr){
+		JsonMapper mapper = JsonMapper.nonEmptyMapper();
+		return mapper.fromJson(resultStr, DianrongWebLoginModel.class);
+	}
 
 }

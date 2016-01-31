@@ -9,10 +9,14 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zimu.javacore.io.MyInputStreamUtils;
 
 public class HttpGetUtils {
+	private static final Logger logger = LoggerFactory.getLogger(HttpPostUtils.class);
+
 	/**
 	 * 
 	 * @author jasonChiu
@@ -26,7 +30,7 @@ public class HttpGetUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie) throws UnsupportedEncodingException, IOException{
+	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie){
 		
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
         if(isHttps){
@@ -37,15 +41,19 @@ public class HttpGetUtils {
 		if(StringUtils.isEmpty(CookieManager.getCookie())){
 			CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
 		}
-		
         String result ="";
-        if(conn.getResponseCode()==200){
-            InputStream inStream = conn.getInputStream();   
-            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
-        }else if(conn.getResponseCode() > 300){
-        	String location = conn.getHeaderField("Location");
-        	result = sendGetStrReq(location,isHttps,true);
-        }
+		try {
+		   if(conn.getResponseCode()==200){
+	            InputStream inStream = conn.getInputStream();   
+	            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
+	        }else if(conn.getResponseCode() > 300){
+	        	String location = conn.getHeaderField("Location");
+	        	result = sendGetStrReq(location,isHttps,true);
+	        }
+		} catch (Exception e) {
+			logger.error("发送get请求失败",e);
+		}
+       
 		return result;
 	}
 	/**
@@ -58,7 +66,7 @@ public class HttpGetUtils {
 	 * @throws IOException 
 	 * @throws UnsupportedEncodingException 
 	 */
-	public static String sendGetStrReq(String path) throws UnsupportedEncodingException, IOException{
+	public static String sendGetStrReq(String path){
 		return sendGetStrReq(path,false,false);
 	}
 	/**
@@ -89,10 +97,10 @@ public class HttpGetUtils {
 			    MyInputStreamUtils.stream2File(inStream, "", "");
 			}
 		} catch (IOException e) {
-			
+			logger.error("发送get请求失败",e);
 		}
 	}
-	public static void sendGetFileReq(String path) throws UnsupportedEncodingException, IOException{
+	public static void sendGetFileReq(String path){
 		sendGetFileReq(path, false);
 	}
 	
