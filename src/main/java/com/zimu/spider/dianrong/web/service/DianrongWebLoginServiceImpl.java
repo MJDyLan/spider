@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.zimu.javacore.http.HttpGetUtils;
 import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.utils.MapUtils;
 import com.zimu.spider.base.constant.WebUrlConstant;
@@ -58,5 +59,11 @@ public class DianrongWebLoginServiceImpl implements DianrongWebLoginService<Dian
 		buildLoginParam(requestMap,username, password,authcode);
 		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), true);
 		return result;
+	}
+	public static void main(String[] args) {
+		DianrongWebLoginService loginService = new DianrongWebLoginServiceImpl();
+		System.err.println(loginService.doLogin("13349910969", "qiujisheng89", ""));
+		String url ="https://www.dianrong.com/api/v2/user/profile";
+		System.out.println(HttpGetUtils.sendGetStrReq(url, true, true));
 	}
 }

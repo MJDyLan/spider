@@ -50,6 +50,7 @@ public class HttpConnectionUtils {
         conn.setRequestProperty("Connection", "Keep-Alive");
         conn.setRequestProperty("Accept-Language","zh-CN");
         conn.setRequestProperty("User-Agent", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586");
+        conn.addRequestProperty("Referer", "https://www.dianrong.com/account/my-account");  
         // 必须设置false，否则会自动redirect到Location的地址  
         conn.setInstanceFollowRedirects(false);
         

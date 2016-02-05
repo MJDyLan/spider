@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.zimu.javacore.http.HttpPostUtils;
+import com.zimu.javacore.utils.MapUtils;
 import com.zimu.javacore.utils.SignUtils;
 import com.zimu.spider.base.constant.AppUrlConstant;
 import com.zimu.spider.yirendai.app.constant.YirendaiConstants;
@@ -37,8 +39,8 @@ public class YirendaiAppAccountServiceImpl implements YirendaiAppAccountService 
 	public String doAccount() {
 		Map<String, Object> requestMap  = new HashMap<String, Object>();
 		buildRequestParam(requestMap);
-		
-		return null;
+		String result = HttpPostUtils.sendPostReq(getAccountInfoUrl(), MapUtils.getParamStringEncoder(requestMap),true);
+		return result;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class WebUrlConstant {
 	
 	public static final String DIANRONG_LOGIN_URL = DIANRONG_BASE_URL+"/api/v2/users/loginsmart";
 	
-	public static final String DIANRONG_ACCOUNT_URL = DIANRONG_BASE_URL +"/api/v2/user/accountprofile";
+	public static final String DIANRONG_ACCOUNT_URL = DIANRONG_BASE_URL +"/api/v2/users/captchaenabled";
  
 	//=============================玖富============================//
 	private static final String FBANK_BASE_URL= "https://8.9fbank.com";
@@ -28,4 +28,9 @@ public class WebUrlConstant {
 	
 	private static String YIRENDAI_BASE_URL = "https://www.yirendai.com";
 	public static String YIRENDAI_CMSHEADER_URL = YIRENDAI_BASE_URL+"/home/cmsHeaderInfo";
+	
+	//===============================你我贷========================//
+	private static String NIWODAI_BASE_LOGIN_URL = "https://member.niwodai.com";
+	public static String NIWODAI_LOGIN__URL = NIWODAI_BASE_LOGIN_URL+ "/index.do?method=doLoginAction1";
+
 }
