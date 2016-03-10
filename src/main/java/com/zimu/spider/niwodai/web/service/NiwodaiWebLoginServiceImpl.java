@@ -56,5 +56,9 @@ public class NiwodaiWebLoginServiceImpl implements NiwodaiWebLoginService {
 		NiwodaiWebLoginService login = new NiwodaiWebLoginServiceImpl();
 		
 		System.err.println(login.doLogin("13349910969", "qiujisheng89", ""));
+		
+		
+		String url = "https://member.niwodai.com/member/investorsAjax.do";
+		System.err.println(HttpGetUtils.sendGetStrReq(url, true, true));
 	}
 }
