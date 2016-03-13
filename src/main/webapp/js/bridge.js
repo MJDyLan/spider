@@ -1,5 +1,4 @@
-;
-(function () {
+define(function () {
 	// cookie的读、写方法
 	var cookie = {
 		get: function (key) {
@@ -111,6 +110,7 @@
 			},
 			// 刷新app四个根节点页面（首页、市场、资产、更多）的方法。使用场景是，比如登陆成功以后，当回到资产和更多的时候，如果页面不刷新，还是显示的未登录。
 			refreshMain: function () {
+				alert('refreshMain');
 				var action = ['refresh_index', 'refresh_marke', 'refresh_assets', 'refresh_more', 'refresh_my']
 				var _data = {
 					service: 'webview.refresh_main',
@@ -332,7 +332,7 @@
 			nativeController.init.topbar(CONFIG_TOPBAR)
 		}
 	}
-})()
+});
 
 
 

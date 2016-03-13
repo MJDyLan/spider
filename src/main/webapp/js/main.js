@@ -1,21 +1,26 @@
 /**
- * 主入口
+ * 主入口,配置zepto,template,util,bridge库
  */
 require.config({
 	paths:{
-		"jquery":"js/jquery",
-			"aa":"js/aa"
+		zepto :"zepto-1.1.6.min",
+		template:"template",
+		util:'util',
+		bridge:'bridge'
+	},
+	shim: {
+        'zepto': {
+            exports: '$'
+        }
 	}
 });
 
-/*require(["math2"],function(a){
-	alert(a.add(10,5));
-	alert(a.plus(10,5));
-	alert(a.multi(10,5));
-	alert(a.divide(10,5));
-});*/
-require(["math"],function(a){
-	alert(a.add(10,5));
-	alert(a.kk(10,5));
-
-});
+require(['zepto','template','util','bridge'],function($,template,util,bridge){
+	var container = $("#tt");
+	var html = template('tmpl',"template");
+	container.html(html);
+	alert($("#test").html());
+	alert(util);
+	util.prompt("12121");
+	nativeController.webview.refreshMain();
+})

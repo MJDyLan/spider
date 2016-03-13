@@ -1,4 +1,4 @@
-;(function() {
+define(function() {
 	// loading
 	function Loading() {
 		var that = this
@@ -307,7 +307,8 @@
 		}
 	}
 
-	var util = {
+	//var util = {
+	return{
 		loading: (function() {
 			var instance = new Loading()
 			return instance
@@ -335,9 +336,10 @@
 			return instance
 		}
 	}
+	//}
 	
-	window.util = util
-})()
+	//window.util = util
+});
 
 /*
 // loading显示隐藏

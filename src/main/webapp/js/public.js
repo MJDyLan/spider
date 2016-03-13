@@ -1,11 +1,3 @@
-// _debug.js为在Pc端时候用的，会插入topbar等，这些东西在app里面是用不到的
-if (!IS_APP) {
-	document.write('<script src="/finance-jlcres/static/js/_debug.js"></script>');
-}
-//GA BA统计
-document.write('<script src="/finance-jlcres/static/js/analytics.js"></script>');
-document.write('<script src="/finance-jlcres/static/js/utils/aes.js"></script>');
-document.write('<script src="/finance-jlcres/static/js/utils/pad-zeropadding-min.js"></script>');
 window.toolkit = {
 	/**
 	 * 向一个url之后追加参数
