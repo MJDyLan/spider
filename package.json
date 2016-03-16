@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "This is for study gulp project !",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jishengqiu/spider.git"
+  },
+  "author": {
+    "name": "jishengqiu",
+    "email": "jisheng_qiu@kingdee.com"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.0.5",
+    "gulp-livereload": "^3.8.1"
+  }
+}
