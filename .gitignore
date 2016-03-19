@@ -5,3 +5,4 @@
 .metadata/
 
 /target/
+ /node_modules/

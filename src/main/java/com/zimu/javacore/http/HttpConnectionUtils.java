@@ -4,6 +4,9 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -14,6 +17,7 @@ import javax.net.ssl.TrustManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 public class HttpConnectionUtils {
 	private final static Logger logger = LoggerFactory.getLogger(HttpConnectionUtils.class);
@@ -29,10 +33,12 @@ public class HttpConnectionUtils {
 		return null;
 	}
 	public static void buildHeader(HttpURLConnection conn,String method){
-		buildHeader(conn, method, false);
+		buildHeader(conn, method, false,new HashMap<String,Object>());
 	}
-	
-	public static void buildHeader(HttpURLConnection conn,String method,boolean needCookie){
+	public static void buildHeader(HttpURLConnection conn,String method,Map<String,Object> header){
+		buildHeader(conn, method, false,header);
+	}
+	public static void buildHeader(HttpURLConnection conn,String method,boolean needCookie,Map<String,Object> header){
 		
 		try {
 			conn.setRequestMethod(method);
@@ -50,14 +56,21 @@ public class HttpConnectionUtils {
         conn.setRequestProperty("Connection", "Keep-Alive");
         conn.setRequestProperty("Accept-Language","zh-CN");
         conn.setRequestProperty("User-Agent", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586");
-        conn.addRequestProperty("Referer", "https://member.niwodai.com/login.html");  
         // 必须设置false，否则会自动redirect到Location的地址  
         conn.setInstanceFollowRedirects(false);
-        
+        //设置特定的头参数
+        buildHeader(conn,header);
         conn.setConnectTimeout(5*1000);
         conn.setReadTimeout(5*1000);
 	}
-	
+	public static void buildHeader(HttpURLConnection conn,Map<String,Object> header){
+		Set<String> set = header.keySet();
+		if(CollectionUtils.isEmpty(set))return;
+		for (String key : set) {
+			conn.addRequestProperty(key, header.get(key).toString());
+		}
+	}
+
 	
 	/**
 	 * 设置https相关属性

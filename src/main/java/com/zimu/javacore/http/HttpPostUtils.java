@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -28,13 +30,13 @@ public class HttpPostUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendPostReq(String path,String params,boolean isHttps,boolean isNeedCookie){
+	public static String sendPostReq(String path,String params,boolean isHttps,boolean isNeedCookie,Map<String,Object> header){
 		
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
         if(isHttps){
 			HttpConnectionUtils.buildHttpsURLConnection((HttpsURLConnection)conn);
 		}
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,isNeedCookie);
+		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,isNeedCookie,header);
 		String result ="";
 		try {
 			DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
@@ -61,7 +63,10 @@ public class HttpPostUtils {
 		}
 		return result;
 	}
+	public static String sendPostReq(String path,String params,boolean isHttps,boolean isNeedCookie){
+		return sendPostReq(path,params, isHttps, false,new HashMap<String,Object>());
 
+	}
 	/**
 	 * 
 	 * @author jasonChiu
@@ -76,7 +81,7 @@ public class HttpPostUtils {
 	 * @version 1.0
 	 */
 	public static String sendPostReq(String path,String params,boolean isHttps){
-		return sendPostReq(path,params, isHttps, false);
+		return sendPostReq(path,params, isHttps, false,new HashMap<String,Object>());
 	}
 	/**
 	 * 
@@ -92,6 +97,6 @@ public class HttpPostUtils {
 	 * @version 1.0
 	 */
 	public static String sendPostReq(String path,String params){
-		return sendPostReq(path,params,false, false);
+		return sendPostReq(path,params,false, false,new HashMap<String,Object>());
 	}
 }

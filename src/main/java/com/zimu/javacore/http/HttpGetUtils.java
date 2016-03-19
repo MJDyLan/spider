@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -30,13 +31,13 @@ public class HttpGetUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie){
+	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie,Map<String,Object> header){
 		
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
         if(isHttps){
 			HttpConnectionUtils.buildHttpsURLConnection((HttpsURLConnection)conn);
 		}
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,isNeedCookie);
+		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,isNeedCookie,header);
 		//保存cookie
 		if(StringUtils.isEmpty(CookieManager.getCookie())){
 			CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
@@ -56,6 +57,9 @@ public class HttpGetUtils {
        
 		return result;
 	}
+	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie){
+		return sendGetStrReq(path, isHttps, isNeedCookie, new HashMap<String, Object>());
+	}
 	/**
 	 * 
 	 * @title 发送get请求，返回字符串
@@ -67,7 +71,7 @@ public class HttpGetUtils {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public static String sendGetStrReq(String path){
-		return sendGetStrReq(path,false,false);
+		return sendGetStrReq(path,false,false,new HashMap<String,Object>());
 	}
 	/**
 	 * 

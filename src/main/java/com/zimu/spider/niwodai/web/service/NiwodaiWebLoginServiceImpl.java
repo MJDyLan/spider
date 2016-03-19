@@ -44,7 +44,9 @@ public class NiwodaiWebLoginServiceImpl implements NiwodaiWebLoginService {
 	public String doLogin(String username, String password, String authcode) {
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildLoginParam(requestMap,username, password,authcode);
-		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), true);
+		Map<String,Object> header = new HashMap<String, Object>();
+		buildHeader(header);
+		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), true,false,header);
 		return result;
 	}
 
@@ -60,5 +62,10 @@ public class NiwodaiWebLoginServiceImpl implements NiwodaiWebLoginService {
 		
 		String url = "https://member.niwodai.com/member/investorsAjax.do";
 		System.err.println(HttpGetUtils.sendGetStrReq(url, true, true));
+	}
+
+	@Override
+	public void buildHeader(Map<String, Object> headerMap) {
+		headerMap.put("Referer", "https://member.niwodai.com/login.html");
 	}
 }
