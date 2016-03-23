@@ -15,8 +15,8 @@ public class WebUrlConstant {
 	
 	//==============================投哪网==========================//
 	private static String TOUNA_BASE_URL = "https://www.touna.cn";
-	
 	public static String TOUNA_LOGIN_URL = TOUNA_BASE_URL + "/auth.do";
+	
 	
 	public static String TOUNA_ONESHOP_URL = TOUNA_BASE_URL+ "/account.oneshop.do";
 
@@ -32,5 +32,9 @@ public class WebUrlConstant {
 	//===============================你我贷========================//
 	private static String NIWODAI_BASE_LOGIN_URL = "https://member.niwodai.com";
 	public static String NIWODAI_LOGIN__URL = NIWODAI_BASE_LOGIN_URL+ "/index.do?method=doLoginAction1";
-
+	
+	//===============================众禄基金========================//
+		private static String ZLFUND_BASE_LOGIN_URL = "https://www.zlfund.cn";
+		public static String ZLFUND_LOGIN_URL = ZLFUND_BASE_LOGIN_URL+ "/accounts/login";
+		public static String ZLFUND_LOGIN_SUBMIT_URL = ZLFUND_BASE_LOGIN_URL+ "/accounts/login";
 }
