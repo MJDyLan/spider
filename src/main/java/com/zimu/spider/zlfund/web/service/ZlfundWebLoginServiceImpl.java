@@ -47,8 +47,24 @@ public class ZlfundWebLoginServiceImpl implements ZlfundWebLoginService {
 		return resultStr;
 	}
 	public static void main(String[] args) {
-		String url = "https://login.yirendai.com/auth/tologin?redirectURI=http%3A%2F%2Fwww.yirendai.com%2F%3Futm_source%3Dbd-pc-pz%26utm_medium%3DSEM%26utm_campaign%3D%3F%3F%3F%3F%26utm_content%3D%3F%3F%3F%3F%26utm_term%3D%3F%3F%26utm_channel%3D1%26utm_cparameters%3D%7Bzh%3Dbaidupz%2Ctime%3D20160127%7D";
+		String url = "https://www.zlfund.cn/accounts/login/";
 		HttpGetUtils.sendGetStrReq(url, true, true);
 		System.out.println(CookieManager.getCookie());
+		String token = "";
+		String cookie = CookieManager.getCookie();
+		String[] cookieArr = cookie.split(";");
+		for (int i = 0; i < cookieArr.length; i++) {
+			if(cookieArr[i].contains("token")){
+				token = cookieArr[i].split("=")[1];
+			}
+		}
+		Map<String,Object> requestMap = new HashMap<String, Object>();
+		requestMap.put("identity", "429004198902172759");
+		requestMap.put("password", "qiujisheng89");
+		requestMap.put("csrfmiddlewaretoken", token);
+		String result = HttpPostUtils.sendPostReq(url, MapUtils.getParamStringEncoder(requestMap), true);
+		String url2 = "https://www.zlfund.cn/accounts/profile/?_=1459346893323";
+		String result2 = HttpGetUtils.sendGetStrReq(url2, true, true);
+		System.out.println(result2);
 	}
 }
