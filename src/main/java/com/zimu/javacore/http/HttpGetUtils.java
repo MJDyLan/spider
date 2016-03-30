@@ -7,7 +7,9 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -32,11 +34,11 @@ public class HttpGetUtils {
 	 * @version 1.0
 	 */
 	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie,Map<String,Object> header){
-		
-        HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
         if(isHttps){
-			HttpConnectionUtils.buildHttpsURLConnection((HttpsURLConnection)conn);
+		  HttpConnectionUtils.buildHttpsURLConnection();
 		}
+        HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
+
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,isNeedCookie,header);
 		//保存cookie
 		if(StringUtils.isEmpty(CookieManager.getCookie())){
@@ -84,13 +86,12 @@ public class HttpGetUtils {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public static void sendGetFileReq(String path,boolean isHttps) {
-		
-		HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
-		
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET);
 		if(isHttps){
-			HttpConnectionUtils.buildHttpsURLConnection((HttpsURLConnection)conn);
+			HttpConnectionUtils.buildHttpsURLConnection();
 		}
+		HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
+		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET);
+		
 		//保存cookie
 		if(StringUtils.isEmpty(CookieManager.getCookie())){
 			CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));

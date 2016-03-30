@@ -31,11 +31,11 @@ public class HttpPostUtils {
 	 * @version 1.0
 	 */
 	public static String sendPostReq(String path,String params,boolean isHttps,boolean isNeedCookie,Map<String,Object> header){
-		
-        HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
-        if(isHttps){
-			HttpConnectionUtils.buildHttpsURLConnection((HttpsURLConnection)conn);
+		if(isHttps){
+			HttpConnectionUtils.buildHttpsURLConnection();
 		}
+        HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
+       
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,isNeedCookie,header);
 		String result ="";
 		try {

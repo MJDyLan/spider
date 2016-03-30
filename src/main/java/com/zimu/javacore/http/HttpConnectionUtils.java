@@ -76,21 +76,22 @@ public class HttpConnectionUtils {
 	 * 设置https相关属性
 	 * @param connection
 	 */
-	public static void buildHttpsURLConnection(HttpsURLConnection connection) {
+	public static void buildHttpsURLConnection() {
 		try {
 			SSLContext ctx = SSLContext.getInstance("TLS");
 			ctx.init(new KeyManager[0],
 					new TrustManager[] { new DefaultTrustManager() },
 					new SecureRandom());
 			SSLContext.setDefault(ctx);
-			connection.setHostnameVerifier(new HostnameVerifier() {
+			HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 				public boolean verify(String hostname, SSLSession session) {
 					return true;
 				}
 			});
+			HttpsURLConnection.setDefaultSSLSocketFactory(ctx  
+		            .getSocketFactory()); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
+	}  
 }

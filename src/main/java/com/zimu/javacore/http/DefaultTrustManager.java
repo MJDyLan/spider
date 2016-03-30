@@ -2,7 +2,6 @@ package com.zimu.javacore.http;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-
 import javax.net.ssl.X509TrustManager;
 
 /** 
@@ -28,5 +27,4 @@ public final class DefaultTrustManager implements X509TrustManager {
 	public X509Certificate[] getAcceptedIssuers() {
 		return null;
 	}
-
 }

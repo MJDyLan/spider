@@ -47,7 +47,7 @@ public class ZlfundWebLoginServiceImpl implements ZlfundWebLoginService {
 		return resultStr;
 	}
 	public static void main(String[] args) {
-		String url = "https://www.zlfund.cn/accounts/login/";
+		String url = "https://login.yirendai.com/auth/tologin?redirectURI=http%3A%2F%2Fwww.yirendai.com%2F%3Futm_source%3Dbd-pc-pz%26utm_medium%3DSEM%26utm_campaign%3D%3F%3F%3F%3F%26utm_content%3D%3F%3F%3F%3F%26utm_term%3D%3F%3F%26utm_channel%3D1%26utm_cparameters%3D%7Bzh%3Dbaidupz%2Ctime%3D20160127%7D";
 		HttpGetUtils.sendGetStrReq(url, true, true);
 		System.out.println(CookieManager.getCookie());
 	}
