@@ -45,6 +45,12 @@ public class HttpGetUtils {
 			CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
 		}
         String result ="";
+        try {
+			System.err.println(conn.getResponseCode());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 		   if(conn.getResponseCode()==200){
 	            InputStream inStream = conn.getInputStream();   
