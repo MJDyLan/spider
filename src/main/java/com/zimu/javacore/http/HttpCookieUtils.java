@@ -5,6 +5,8 @@ package com.zimu.javacore.http;
 
 import java.net.HttpURLConnection;
 
+import org.apache.commons.lang3.StringUtils;
+
 
 /**
  * @author jasonChiu
@@ -27,5 +29,26 @@ public class HttpCookieUtils {
 			}
 		}
 		return cookieStr;
+	}
+	public static String getCookieByKey(String key){
+		String cookieValue = "";
+		String cookies = CookieManager.getCookie();
+		String[] cookieArr = cookies.split(";");
+		for (int i = 0; i < cookieArr.length; i++) {
+			if(cookieArr[i].startsWith(key)){
+				cookieValue = cookieArr[i].split("=")[1];
+			}
+		}
+		return cookieValue;
+	}
+	public static void mergeCookie(String cookie){
+		if(StringUtils.isEmpty(cookie))return;
+		String source = CookieManager.getCookie();
+		if(StringUtils.isNotEmpty(source)){
+			source = ";"+cookie;
+		}else{
+			source = cookie;
+		}
+		CookieManager.setCookie(source);
 	}
 }

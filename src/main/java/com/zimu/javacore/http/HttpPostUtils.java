@@ -8,12 +8,11 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.zimu.javacore.io.MyInputStreamUtils;
+import com.zimu.javacore.utils.RegexUtils;
 
 public class HttpPostUtils {
 	private static final Logger logger = LoggerFactory.getLogger(HttpPostUtils.class);
@@ -53,8 +52,16 @@ public class HttpPostUtils {
 	            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
 	        }else if(conn.getResponseCode() >300){
 	        	String location = conn.getHeaderField("Location");
+	        	//这时location可能没有带域名
+	        	//从path中提取域名
+	        	String domain = RegexUtils.getDomian(path);
+	        	String procol = isHttps?"https://":"http://";
+	        	if(!location.contains(domain)){
+	        		location = procol+domain+location;
+	        	}
 	        	//发现跳转重新设置cookie
-	        	CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
+	        	HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
+	        	
 	        	System.err.println("提交表单后302重定向后的cookie="+CookieManager.getCookie());
 	        	result = HttpGetUtils.sendGetStrReq(location,isHttps,true);
 	        }

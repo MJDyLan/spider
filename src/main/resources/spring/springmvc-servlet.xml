@@ -19,6 +19,7 @@
 	   <property name="suffix" value=".jsp"/>
 	</bean>
 	<!-- 不拦截静态资源 -->
+	
 	<mvc:annotation-driven /> 
 	<mvc:resources location="/" mapping="/**/*.html"/>
 	<mvc:resources location="/" mapping="/**/*.js"/>

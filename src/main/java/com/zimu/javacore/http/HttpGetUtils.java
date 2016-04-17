@@ -40,17 +40,9 @@ public class HttpGetUtils {
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
 
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,isNeedCookie,header);
-		//保存cookie
-		if(StringUtils.isEmpty(CookieManager.getCookie())){
-			CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
-		}
+		//合并cookie
+		HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
         String result ="";
-        try {
-			System.err.println(conn.getResponseCode());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		try {
 		   if(conn.getResponseCode()==200){
 	            InputStream inStream = conn.getInputStream();   
@@ -99,9 +91,7 @@ public class HttpGetUtils {
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET);
 		
 		//保存cookie
-		if(StringUtils.isEmpty(CookieManager.getCookie())){
-			CookieManager.setCookie(HttpCookieUtils.getCookieValue(conn));
-		}
+    	HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
         try {
 			if(conn.getResponseCode()==200){
 			    InputStream inStream = conn.getInputStream();   
