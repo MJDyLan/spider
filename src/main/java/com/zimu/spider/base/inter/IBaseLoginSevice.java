@@ -1,18 +1,18 @@
 package com.zimu.spider.base.inter;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 public interface IBaseLoginSevice<T> {
 	
-	public String getLoginUrl();
+	public void doBefore();
 	
-	public void buildLoginParam(Map<String,Object> requestMap,String username,String password);
-	
-	public void buildLoginParam(Map<String,Object> requestMap,String username,String password,String authcode);
-	
-	public void buildRequestParam(Map<String,Object> requestMap);
-	
-	public String doLogin(String username,String password,String authcode);
+	public void buildHeader(Map<String,Object> header);
 	
 	public T toModel(String resultStr);
+	
+	public boolean isHttps();
+	
+	public boolean isRedirect302();
 }

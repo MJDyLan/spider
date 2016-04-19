@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.zimu.javacore.io.MyInputStreamUtils;
+import com.zimu.javacore.utils.RegexUtils;
 
 public class HttpGetUtils {
 	private static final Logger logger = LoggerFactory.getLogger(HttpPostUtils.class);
@@ -49,7 +50,14 @@ public class HttpGetUtils {
 	            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
 	        }else if(conn.getResponseCode() > 300){
 	        	String location = conn.getHeaderField("Location");
-	        	result = sendGetStrReq(location,isHttps,true);
+	        	String domain = RegexUtils.getDomian(path);
+	        	String procol = isHttps?"https://":"http://";
+	        	if(!location.contains(domain)){
+	        		location = procol+domain+location;
+	        	}
+	        	if(StringUtils.isNotEmpty(location)){
+	        		result = sendGetStrReq(location,isHttps,true);
+	        	}
 	        }
 		} catch (Exception e) {
 			logger.error("发送get请求失败",e);

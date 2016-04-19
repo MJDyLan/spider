@@ -1,5 +1,6 @@
 package com.zimu.javacore.http;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -94,4 +95,27 @@ public class HttpConnectionUtils {
 			e.printStackTrace();
 		}
 	}  
+	
+	/**
+	 * ResponseHeader 值从HttpURLConnection取得并保存
+	 */
+	public static void buildHttpResponseBy(final HttpResponse response, final HttpURLConnection urlConnection) {
+		if (response == null || urlConnection == null) {
+			return;
+		}
+		response.setUrl(urlConnection.getURL().toString());
+		try {
+			response.setResponseCode(urlConnection.getResponseCode());
+		} catch (final IOException e) {
+			response.setResponseCode(-1);
+		}
+		// cookies
+		HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(urlConnection));
+		
+		response.setResponseHeader(ConstHttp.CONTENT_LENGTH, urlConnection.getHeaderField(ConstHttp.CONTENT_LENGTH));
+		response.setResponseHeader(ConstHttp.CONTENT_TYPE, urlConnection.getHeaderField(ConstHttp.CONTENT_TYPE));
+		response.setResponseHeader(ConstHttp.EXPIRES, urlConnection.getHeaderField(ConstHttp.EXPIRES));
+		response.setResponseHeader(ConstHttp.CACHE_CONTROL, urlConnection.getHeaderField(ConstHttp.CACHE_CONTROL));
+		response.setResponseHeader(ConstHttp.LOCATION, urlConnection.getHeaderField(ConstHttp.LOCATION));
+	}
 }

@@ -6,15 +6,13 @@
  */
 package com.zimu.spider.dianrong.web.service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.zimu.javacore.http.HttpGetUtils;
-import com.zimu.javacore.http.HttpPostUtils;
-import com.zimu.javacore.utils.MapUtils;
 import com.zimu.spider.base.constant.WebUrlConstant;
+import com.zimu.spider.base.inter.BaseLoginService;
 import com.zimu.spider.dianrong.web.model.DianrongWebLoginModel;
 
 /**
@@ -24,23 +22,10 @@ import com.zimu.spider.dianrong.web.model.DianrongWebLoginModel;
  * @version 1.0
  */
 @Service("dianrongWebLoginService")
-public class DianrongWebLoginServiceImpl implements DianrongWebLoginService<DianrongWebLoginModel>{
-	
+public class DianrongWebLoginServiceImpl extends BaseLoginService<DianrongWebLoginModel> implements DianrongWebLoginService{
 	@Override
 	public String getLoginUrl() {
 		return WebUrlConstant.DIANRONG_LOGIN_URL;
-	}
-	
-	@Override
-	public void buildLoginParam(Map<String, Object> requestMap,String username, String password) {
-		this.buildLoginParam(requestMap, username, password,"");
-	}
-
-
-	@Override
-	public void buildLoginParam(Map<String, Object> requestMap,String username, String password, String authcode) {
-		requestMap.put("identity", username);
-		requestMap.put("password", password);	
 	}
 
 	@Override
@@ -51,19 +36,20 @@ public class DianrongWebLoginServiceImpl implements DianrongWebLoginService<Dian
 	@Override
 	public DianrongWebLoginModel toModel(String resultStr) {
 		return DianrongWebLoginModel.getInstanceByJson(resultStr);
+
 	}
 
 	@Override
-	public String doLogin(String username,String password,String authcode) {
-		Map<String,Object> requestMap = new HashMap<String, Object>();
-		buildLoginParam(requestMap,username, password,authcode);
-		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), true);
-		return result;
+	public void buildLoginParam(Map<String, Object> requestMap,String username, String password, String authcode) {
+		requestMap.put("identity", username);
+		requestMap.put("password", password);	
 	}
+	
 	public static void main(String[] args) {
-		DianrongWebLoginService loginService = new DianrongWebLoginServiceImpl();
+		DianrongWebLoginServiceImpl loginService = new DianrongWebLoginServiceImpl();
 		System.err.println(loginService.doLogin("13349910969", "qiujisheng89", ""));
 		String url ="https://www.dianrong.com/api/v2/user/profile";
 		System.out.println(HttpGetUtils.sendGetStrReq(url, true, true));
+		
 	}
 }
