@@ -118,4 +118,5 @@ public class HttpConnectionUtils {
 		response.setResponseHeader(ConstHttp.CACHE_CONTROL, urlConnection.getHeaderField(ConstHttp.CACHE_CONTROL));
 		response.setResponseHeader(ConstHttp.LOCATION, urlConnection.getHeaderField(ConstHttp.LOCATION));
 	}
+	
 }

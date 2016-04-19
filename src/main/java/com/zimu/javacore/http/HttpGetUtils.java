@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javax.net.ssl.SSLSession;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 import com.zimu.javacore.io.MyInputStreamUtils;
 import com.zimu.javacore.utils.RegexUtils;
@@ -115,7 +117,37 @@ public class HttpGetUtils {
 	public static void sendGetFileReq(String path){
 		sendGetFileReq(path, false);
 	}
-	
-	
+	public static HttpResponse sendGet(String path,Map<String,Object> header){
+		return sendGet(path,true,header);
+	}
+	public static HttpResponse sendGet(String path){
+		return sendGet(path,true,new HashMap<String,Object>());
+	}
+	public static HttpResponse sendGet(String path,boolean ishttps,Map<String,Object> header){
+		HttpResponse response = new HttpResponse();
+		  if(ishttps){
+			  HttpConnectionUtils.buildHttpsURLConnection();
+			}
+	        HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
+
+			HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,header);
+			//合并cookie
+			HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
+			
+			HttpConnectionUtils.buildHttpResponseBy(response, conn);
+			
+			if(Arrays.binarySearch(ConstHttp.STATUS_CODE_REDIRECT, response.getResponseCode())>0){
+				String location = response.getLocation();
+	        	String domain = RegexUtils.getDomian(path);
+	        	String procol = ishttps?"https://":"http://";
+	        	if(!location.contains(domain)){
+	        		location = procol+domain+location;
+	        	}
+	        	if(StringUtils.isNotEmpty(location)){
+					sendGet(location,ishttps,header);
+	        	}
+			}
+			return response;
+	}
 	
 }

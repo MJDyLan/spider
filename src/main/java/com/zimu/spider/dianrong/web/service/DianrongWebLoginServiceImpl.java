@@ -35,6 +35,7 @@ public class DianrongWebLoginServiceImpl extends BaseLoginService<DianrongWebLog
 
 	@Override
 	public DianrongWebLoginModel toModel(String resultStr) {
+		System.err.println(resultStr);
 		return DianrongWebLoginModel.getInstanceByJson(resultStr);
 
 	}

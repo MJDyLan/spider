@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,9 +119,12 @@ public class HttpPostUtils {
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
        
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,header);
+		String contentType =StringUtils.EMPTY;
+		if(header!=null && header.get(ConstHttp.CONTENT_TYPE)!=null){
+			 contentType = header.get(ConstHttp.CONTENT_TYPE).toString();
+		}
 		try {
 			DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-			String contentType = conn.getContentType();
 			String paramString = StringUtils.EMPTY;
 			if(contentType.contains(ConstHttp.CONTENT_TYPE_JSON)){
 				JsonMapper mapper = JsonMapper.nonDefaultMapper();
@@ -132,29 +136,18 @@ public class HttpPostUtils {
 	        outStream.write(paramString.getBytes());
 	        outStream.flush();
 	        outStream.close();
-	      /*  if(conn.getResponseCode()==200){
-	            InputStream inStream = conn.getInputStream();
-	          //保存cookie
-	            System.err.println("cookie list:"+conn.getHeaderFields().get("Set-Cookie").toString());
-	    		CookieManager.setCookie(conn.getHeaderFields().get("Set-Cookie").toString());
-	    		System.err.println("提交表单后200的cookie："+HttpCookieUtils.getCookieValue(conn));
-	            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
-	        }else if(conn.getResponseCode() >300){
-	        	String location = conn.getHeaderField("Location");
-	        	//这时location可能没有带域名
-	        	//从path中提取域名
+	        HttpConnectionUtils.buildHttpResponseBy(response,conn);
+	        if(Arrays.binarySearch(ConstHttp.STATUS_CODE_REDIRECT, response.getResponseCode())>0){
+				String location = response.getLocation();
 	        	String domain = RegexUtils.getDomian(path);
-	        	String procol = isHttps?"https://":"http://";
+	        	String procol =  isHttps?"https://":"http://";
 	        	if(!location.contains(domain)){
 	        		location = procol+domain+location;
 	        	}
-	        	//发现跳转重新设置cookie
-	        	HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
-	        	
-	        	System.err.println("提交表单后302重定向后的cookie="+CookieManager.getCookie());
-	        	result = HttpGetUtils.sendGetStrReq(location,isHttps,true);
-	        }*/
-	        HttpConnectionUtils.buildHttpResponseBy(response,conn);
+	        	if(StringUtils.isNotEmpty(location)){
+	        		response = HttpGetUtils.sendGet(location, isHttps,header);
+	        	}
+			}
 	        return response;
 		} catch (Exception e) {
 			logger.error("发送post请求异常", e);

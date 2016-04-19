@@ -1,5 +1,6 @@
 package com.zimu.spider.base.inter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,20 +31,17 @@ public abstract class BaseLoginService<T> implements IBaseLoginSevice<T>{
 		buildHeader(header);
 		Map<String,Object> requestMap = new HashMap<String,Object>();
 		buildLoginParam(requestMap, username, password, authcode);
-		HttpResponse response = HttpPostUtils.sendPost(getLoginUrl(), requestMap, isHttps(),header);
-		String result = StringUtils.EMPTY;
+		HttpResponse response = HttpPostUtils.sendPost(getLoginUrl(), requestMap, isHttps(),header);		
 		//TODO 302
-		if(response.getResponseCode() == ConstHttp.STATUS_CODE_REDIRECT_302 ||response.getResponseCode() ==ConstHttp.STATUS_CODE_REDIRECT_301){
+		if(Arrays.binarySearch(ConstHttp.STATUS_CODE_REDIRECT,response.getResponseCode())>0){
 			if(isRedirect302()){
 				String location = response.getLocation();
 				//TODO 是否自动跳转
-				result = HttpGetUtils.sendGetStrReq(location, isHttps());
+				response = HttpGetUtils.sendGet(location, isHttps(),header);
 			}
-		}else if(response.getResponseCode() == ConstHttp.STATUS_CODE_SUCCESS){
-			result = response.getResponseBody();
 		}
 		//父类组合登录请求步骤
-		return toModel(result);
+		return toModel(response.getResponseBody());
 	}
 	
 	public T toModel(T resultStr){
