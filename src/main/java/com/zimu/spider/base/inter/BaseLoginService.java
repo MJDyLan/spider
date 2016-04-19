@@ -3,7 +3,12 @@ package com.zimu.spider.base.inter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.zimu.javacore.http.ConstHttp;
+import com.zimu.javacore.http.HttpGetUtils;
 import com.zimu.javacore.http.HttpPostUtils;
+import com.zimu.javacore.http.HttpResponse;
 import com.zimu.javacore.utils.MapUtils;
 
 public abstract class BaseLoginService<T> implements IBaseLoginSevice<T>{
@@ -25,10 +30,18 @@ public abstract class BaseLoginService<T> implements IBaseLoginSevice<T>{
 		buildHeader(header);
 		Map<String,Object> requestMap = new HashMap<String,Object>();
 		buildLoginParam(requestMap, username, password, authcode);
+		HttpResponse response = HttpPostUtils.sendPost(getLoginUrl(), requestMap, isHttps(),header);
+		String result = StringUtils.EMPTY;
 		//TODO 302
-		
-		//TODO 处理Location没有域名的情况
-		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), isHttps());
+		if(response.getResponseCode() == ConstHttp.STATUS_CODE_REDIRECT_302 ||response.getResponseCode() ==ConstHttp.STATUS_CODE_REDIRECT_301){
+			if(isRedirect302()){
+				String location = response.getLocation();
+				//TODO 是否自动跳转
+				result = HttpGetUtils.sendGetStrReq(location, isHttps());
+			}
+		}else if(response.getResponseCode() == ConstHttp.STATUS_CODE_SUCCESS){
+			result = response.getResponseBody();
+		}
 		//父类组合登录请求步骤
 		return toModel(result);
 	}

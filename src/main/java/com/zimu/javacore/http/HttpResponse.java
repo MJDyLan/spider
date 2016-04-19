@@ -1,8 +1,12 @@
 package com.zimu.javacore.http;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.zimu.javacore.io.MyInputStreamUtils;
 
 public class HttpResponse {
 	
@@ -38,6 +42,19 @@ public class HttpResponse {
 		this.in = in;
 	}
 	public String getResponseBody() {
+		if(in!=null){
+			try {
+				responseBody=new String(MyInputStreamUtils.stream2Byte(in), "UTF-8");
+			} catch (Exception e){
+				e.printStackTrace();
+			}finally{
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return responseBody;
 	}
 	public void setResponseBody(String responseBody) {

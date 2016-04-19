@@ -8,10 +8,13 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.zimu.javacore.io.MyInputStreamUtils;
+import com.zimu.javacore.utils.JsonMapper;
+import com.zimu.javacore.utils.MapUtils;
 import com.zimu.javacore.utils.RegexUtils;
 
 public class HttpPostUtils {
@@ -107,7 +110,7 @@ public class HttpPostUtils {
 		return sendPostReq(path,params,false, false,new HashMap<String,Object>());
 	}
 	
-	public static HttpResponse sendPost(String path,String params,boolean isHttps,Map<String,Object> header){
+	public static HttpResponse sendPost(String path,Map<String,Object> requestMap,boolean isHttps,Map<String,Object> header){
 		HttpResponse response = new HttpResponse();
 		if(isHttps){
 			HttpConnectionUtils.buildHttpsURLConnection();
@@ -115,14 +118,20 @@ public class HttpPostUtils {
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
        
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,header);
-		String result ="";
 		try {
 			DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-	        outStream.write(params.getBytes());
+			String contentType = conn.getContentType();
+			String paramString = StringUtils.EMPTY;
+			if(contentType.contains(ConstHttp.CONTENT_TYPE_JSON)){
+				JsonMapper mapper = JsonMapper.nonDefaultMapper();
+				paramString = mapper.toJson(requestMap);
+			}else{
+				paramString = MapUtils.getParamStringEncoder(requestMap);
+			}
+			//根据content_type来确定怎么处理参数
+	        outStream.write(paramString.getBytes());
 	        outStream.flush();
 	        outStream.close();
-			
-	       
 	      /*  if(conn.getResponseCode()==200){
 	            InputStream inStream = conn.getInputStream();
 	          //保存cookie

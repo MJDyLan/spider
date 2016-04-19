@@ -65,6 +65,9 @@ public class HttpGetUtils {
        
 		return result;
 	}
+	public static String sendGetStrReq(String path,boolean isHttps){
+		return sendGetStrReq(path, isHttps, true, new HashMap<String, Object>());
+	}
 	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie){
 		return sendGetStrReq(path, isHttps, isNeedCookie, new HashMap<String, Object>());
 	}
