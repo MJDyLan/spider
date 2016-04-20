@@ -37,10 +37,6 @@ public class LoginController {
 	public ModelAndView doLogin(@RequestParam("username") String username,@RequestParam("password") String password,
 			@RequestParam("authcode") String authcode){
 		ModelAndView model = new ModelAndView("touna/account");
-		String result = tounaWebLoginService.doLogin(username, password, authcode);
-		String accoutInfo = tounaAccountService.doAccount();
-		model.addObject("login_result", result);
-		model.addObject("account_result", accoutInfo);
 		return model;
 	}
 }

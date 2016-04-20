@@ -58,6 +58,6 @@ public final class ConstHttp {
 	 * 状态码
 	 */
 	public static final int STATUS_CODE_SUCCESS = 200;
-	public static final int[] STATUS_CODE_REDIRECT = {301,302,303,304,305};
+	public static final String STATUS_CODE_REDIRECT = "301,302,303,304,305";
 
 }

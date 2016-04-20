@@ -1,6 +1,7 @@
 package com.zimu.javacore.http;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -16,9 +17,12 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
+
+import com.zimu.javacore.io.MyInputStreamUtils;
 
 public class HttpConnectionUtils {
 	private final static Logger logger = LoggerFactory.getLogger(HttpConnectionUtils.class);
@@ -34,12 +38,9 @@ public class HttpConnectionUtils {
 		return null;
 	}
 	public static void buildHeader(HttpURLConnection conn,String method){
-		buildHeader(conn, method, false,new HashMap<String,Object>());
+		buildHeader(conn, method,new HashMap<String,Object>());
 	}
 	public static void buildHeader(HttpURLConnection conn,String method,Map<String,Object> header){
-		buildHeader(conn, method, false,header);
-	}
-	public static void buildHeader(HttpURLConnection conn,String method,boolean needCookie,Map<String,Object> header){
 		
 		try {
 			conn.setRequestMethod(method);
@@ -49,9 +50,7 @@ public class HttpConnectionUtils {
         conn.setDoOutput(true);
         conn.setUseCaches(false);
         //设置cookie
-        if(needCookie){
-        	conn.setRequestProperty("Cookie", CookieManager.getCookie());
-        }
+        conn.setRequestProperty("Cookie", CookieManager.getCookie());
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("Accept-Charset", "utf-8");
         conn.setRequestProperty("Connection", "Keep-Alive");
@@ -59,7 +58,7 @@ public class HttpConnectionUtils {
         conn.setRequestProperty("User-Agent", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586");
         // 必须设置false，否则会自动redirect到Location的地址  
         conn.setInstanceFollowRedirects(false);
-        //设置特定的头参数
+        //自定义在请求之前指明的头参数
         buildHeader(conn,header);
         conn.setConnectTimeout(5*1000);
         conn.setReadTimeout(5*1000);
@@ -109,7 +108,8 @@ public class HttpConnectionUtils {
 		} catch (final IOException e) {
 			response.setResponseCode(-1);
 		}
-		// cookies
+		response.setResponseBody(getResponseBody(urlConnection));
+		//cookies
 		HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(urlConnection));
 		
 		response.setResponseHeader(ConstHttp.CONTENT_LENGTH, urlConnection.getHeaderField(ConstHttp.CONTENT_LENGTH));
@@ -119,4 +119,33 @@ public class HttpConnectionUtils {
 		response.setResponseHeader(ConstHttp.LOCATION, urlConnection.getHeaderField(ConstHttp.LOCATION));
 	}
 	
+	/**
+	 * 拿到返回结果字符串 TODO 可能是整个html
+	 * 
+	 * @param urlConnection
+	 * @return
+	 */
+	public static String getResponseBody(final HttpURLConnection urlConnection) {
+		InputStream in = null;
+		String responseBody = StringUtils.EMPTY;
+		try {
+			in = urlConnection.getInputStream();
+			if(in!=null){
+				responseBody=new String(MyInputStreamUtils.stream2Byte(in), "UTF-8");
+			} 
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			  if(in != null) {
+	                try {
+	                    //关闭流资源，需要再次捕捉异常
+	                    in.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+		}
+		return responseBody;
+	}
+
 }

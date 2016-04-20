@@ -1,5 +1,6 @@
 package com.zimu.javacore.security;
 
+import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.http.HttpUtils;
 
 
@@ -11,9 +12,6 @@ import com.zimu.javacore.http.HttpUtils;
  * @version 1.0
  */
 public class TestAES {
-	
-
-
 	public static void main(String[] args) {
 		String account = "13509692759";
 		String password = "qiujisheng89";
@@ -48,7 +46,7 @@ public class TestAES {
 	    
 	    try {
 	    	System.out.println(sb2.toString());
-			String result = HttpUtils.sendPost(url, sb2.toString());
+			String result = HttpPostUtils.sendPostReq(url, sb2.toString());
 			System.out.println(result);
 		} catch(Exception e){
 			e.printStackTrace();

@@ -50,5 +50,6 @@ public class HttpCookieUtils {
 			source = cookie;
 		}
 		CookieManager.setCookie(source);
+		System.err.println("合并cookie"+source);
 	}
 }

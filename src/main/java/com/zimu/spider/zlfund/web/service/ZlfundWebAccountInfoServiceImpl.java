@@ -3,9 +3,6 @@ package com.zimu.spider.zlfund.web.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-
-import com.zimu.javacore.http.CookieManager;
 import com.zimu.javacore.http.HttpGetUtils;
 
 public class ZlfundWebAccountInfoServiceImpl implements ZlfundWebAccountInfoService{

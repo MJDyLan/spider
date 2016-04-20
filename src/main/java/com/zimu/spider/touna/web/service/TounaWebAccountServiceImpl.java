@@ -41,7 +41,7 @@ public class TounaWebAccountServiceImpl implements TounaWebAccountService {
 	public String doAccount() {
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildRequestParam(requestMap);
-		String result  = HttpPostUtils.sendPostReq(getAccountInfoUrl(), MapUtils.getParamStringEncoder(requestMap), true, true);
+		String result  = HttpPostUtils.sendPostReq(getAccountInfoUrl(), MapUtils.getParamStringEncoder(requestMap));
 
 		return result;
 	}

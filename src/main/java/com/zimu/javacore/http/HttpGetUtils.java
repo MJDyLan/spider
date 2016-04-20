@@ -42,7 +42,7 @@ public class HttpGetUtils {
 		}
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
 
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,isNeedCookie,header);
+		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,header);
 		//合并cookie
 		HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
         String result ="";
@@ -136,7 +136,7 @@ public class HttpGetUtils {
 			
 			HttpConnectionUtils.buildHttpResponseBy(response, conn);
 			
-			if(Arrays.binarySearch(ConstHttp.STATUS_CODE_REDIRECT, response.getResponseCode())>0){
+			if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
 				String location = response.getLocation();
 	        	String domain = RegexUtils.getDomian(path);
 	        	String procol = ishttps?"https://":"http://";

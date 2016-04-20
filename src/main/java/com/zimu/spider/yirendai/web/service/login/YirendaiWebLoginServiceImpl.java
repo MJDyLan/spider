@@ -1,17 +1,14 @@
 package com.zimu.spider.yirendai.web.service.login;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.zimu.javacore.http.HttpGetUtils;
-import com.zimu.javacore.http.HttpPostUtils;
-import com.zimu.javacore.utils.MapUtils;
 import com.zimu.spider.base.constant.WebUrlConstant;
+import com.zimu.spider.base.inter.BaseLoginService;
 
 /** 
  * @title 登录service
@@ -21,7 +18,7 @@ import com.zimu.spider.base.constant.WebUrlConstant;
  * @version 1.0
  */
 @Service("yirendaiWebLoginService")
-public class YirendaiWebLoginServiceImpl implements YirendaiWebLoginService {
+public class YirendaiWebLoginServiceImpl extends BaseLoginService<String> implements YirendaiWebLoginService {
 
 	private static final Logger logger = LoggerFactory.getLogger(YirendaiWebLoginServiceImpl.class);
 	
@@ -37,36 +34,6 @@ public class YirendaiWebLoginServiceImpl implements YirendaiWebLoginService {
 	}
 	
 	@Override
-	public void buildLoginParam(Map<String, Object> requestMap, String username,String password,String authcode) {
-		requestMap.put("username", username);
-	    requestMap.put("password", password);
-	    requestMap.put("authcode", authcode);
-	}
-
-	@Override
-	public void buildLoginParam(Map<String, Object> requestMap,String username, String password) {
-	    this.buildLoginParam(requestMap, username, password,StringUtils.EMPTY);
-	}
-
-	@Override
-	public void buildRequestParam(Map<String, Object> requestMap) {
-		requestMap.put("fromSite", "YRD");
-	    requestMap.put("redirectURI", "https://www.yirendai.com/");
-	    requestMap.put("rememberMe", "0");
-	}
-	
-	@Override
-	public String doLogin(String username, String password, String authcode) {
-		
-		Map<String,Object> requestMap = new HashMap<String, Object>();
-		buildLoginParam(requestMap, username, password, authcode);
-		buildRequestParam(requestMap);
-		String result = HttpPostUtils.sendPostReq(getLoginUrl(), MapUtils.getParamStringEncoder(requestMap), true, true);
-		return result;
-	}
-
-	
-	@Override
 	public String getCmsHeaderInfo() {
 		return HttpGetUtils.sendGetStrReq(WebUrlConstant.YIRENDAI_CMSHEADER_URL, false, true);
 	}
@@ -74,5 +41,15 @@ public class YirendaiWebLoginServiceImpl implements YirendaiWebLoginService {
 	@Override
 	public String toModel(String resultStr) {
 		return resultStr;
+	}
+
+	@Override
+	public void buildLoginParam(Map<String, Object> requestMap,String username, String password, String authcode) {
+		requestMap.put("username", username);
+	    requestMap.put("password", password);
+	    requestMap.put("authcode", authcode);
+		requestMap.put("fromSite", "YRD");
+	    requestMap.put("redirectURI", "https://www.yirendai.com/");
+	    requestMap.put("rememberMe", "0");		
 	}
 }

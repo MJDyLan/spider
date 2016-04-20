@@ -42,19 +42,6 @@ public class HttpResponse {
 		this.in = in;
 	}
 	public String getResponseBody() {
-		if(in!=null){
-			try {
-				responseBody=new String(MyInputStreamUtils.stream2Byte(in), "UTF-8");
-			} catch (Exception e){
-				e.printStackTrace();
-			}finally{
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 		return responseBody;
 	}
 	public void setResponseBody(String responseBody) {

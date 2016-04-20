@@ -32,13 +32,7 @@ public class AccountController {
 	}
 	@RequestMapping("doLogin")
 	public ModelAndView doLogin(@ModelAttribute("userModel") UserModel userModel){
-		String account = userModel.getAccount();
-		String password = userModel.getPassword();
-		
-		String login_result = loginService.doLogin(account, password,StringUtils.EMPTY);
-		
-		ModelAndView modelAndView = new ModelAndView("yirendai/account");  
-	    modelAndView.addObject("login_result", login_result);  
+        ModelAndView modelAndView = new ModelAndView("yirendai/webHead");
 	    return modelAndView;  
 	}
 	@RequestMapping("toWebLogin")
@@ -50,10 +44,7 @@ public class AccountController {
 	}
 	@RequestMapping("doWebLogin")
 	public ModelAndView doWebLogin(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("authcode") String authcode){
-		webLoginService.doLogin(username, password, authcode);
-        String cmsHeadInfo =  webLoginService.getCmsHeaderInfo();
         ModelAndView modelAndView = new ModelAndView("yirendai/webHead");
-        modelAndView.addObject("cmsHeadInfo", cmsHeadInfo);
 		return modelAndView;  
 	}
 }

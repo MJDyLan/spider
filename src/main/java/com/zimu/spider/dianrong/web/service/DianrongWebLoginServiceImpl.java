@@ -23,19 +23,21 @@ import com.zimu.spider.dianrong.web.model.DianrongWebLoginModel;
  */
 @Service("dianrongWebLoginService")
 public class DianrongWebLoginServiceImpl extends BaseLoginService<DianrongWebLoginModel> implements DianrongWebLoginService{
+	
+	
+	@Override
+	public void doBefore() {
+		String loginUrl = "https://www.dianrong.com/account/login";
+		HttpGetUtils.sendGet(loginUrl);
+	}
+
 	@Override
 	public String getLoginUrl() {
 		return WebUrlConstant.DIANRONG_LOGIN_URL;
 	}
 
 	@Override
-	public void buildRequestParam(Map<String, Object> requestMap) {
-		
-	}
-
-	@Override
 	public DianrongWebLoginModel toModel(String resultStr) {
-		System.err.println(resultStr);
 		return DianrongWebLoginModel.getInstanceByJson(resultStr);
 
 	}
@@ -43,14 +45,12 @@ public class DianrongWebLoginServiceImpl extends BaseLoginService<DianrongWebLog
 	@Override
 	public void buildLoginParam(Map<String, Object> requestMap,String username, String password, String authcode) {
 		requestMap.put("identity", username);
-		requestMap.put("password", password);	
+		requestMap.put("password", password);
+		requestMap.put("captcha", authcode);
 	}
 	
 	public static void main(String[] args) {
 		DianrongWebLoginServiceImpl loginService = new DianrongWebLoginServiceImpl();
-		System.err.println(loginService.doLogin("13349910969", "qiujisheng89", ""));
-		String url ="https://www.dianrong.com/api/v2/user/profile";
-		System.out.println(HttpGetUtils.sendGetStrReq(url, true, true));
-		
+		System.out.println(loginService.doLogin("13349910969", "qiujisheng89", ""));
 	}
 }

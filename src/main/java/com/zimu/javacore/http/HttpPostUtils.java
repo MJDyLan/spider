@@ -33,13 +33,13 @@ public class HttpPostUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendPostReq(String path,String params,boolean isHttps,boolean isNeedCookie,Map<String,Object> header){
+	public static String sendPostReq(String path,String params,boolean isHttps,Map<String,Object> header){
 		if(isHttps){
 			HttpConnectionUtils.buildHttpsURLConnection();
 		}
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
        
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,isNeedCookie,header);
+		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,header);
 		String result ="";
 		try {
 			DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
@@ -74,10 +74,6 @@ public class HttpPostUtils {
 		}
 		return result;
 	}
-	public static String sendPostReq(String path,String params,boolean isHttps,boolean isNeedCookie){
-		return sendPostReq(path,params, isHttps, false,new HashMap<String,Object>());
-
-	}
 	/**
 	 * 
 	 * @author jasonChiu
@@ -92,7 +88,7 @@ public class HttpPostUtils {
 	 * @version 1.0
 	 */
 	public static String sendPostReq(String path,String params,boolean isHttps){
-		return sendPostReq(path,params, isHttps, false,new HashMap<String,Object>());
+		return sendPostReq(path,params, isHttps,new HashMap<String,Object>());
 	}
 	/**
 	 * 
@@ -108,7 +104,7 @@ public class HttpPostUtils {
 	 * @version 1.0
 	 */
 	public static String sendPostReq(String path,String params){
-		return sendPostReq(path,params,false, false,new HashMap<String,Object>());
+		return sendPostReq(path,params,true,new HashMap<String,Object>());
 	}
 	
 	public static HttpResponse sendPost(String path,Map<String,Object> requestMap,boolean isHttps,Map<String,Object> header){
@@ -137,16 +133,18 @@ public class HttpPostUtils {
 	        outStream.flush();
 	        outStream.close();
 	        HttpConnectionUtils.buildHttpResponseBy(response,conn);
-	        if(Arrays.binarySearch(ConstHttp.STATUS_CODE_REDIRECT, response.getResponseCode())>0){
+	        if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
 				String location = response.getLocation();
-	        	String domain = RegexUtils.getDomian(path);
-	        	String procol =  isHttps?"https://":"http://";
-	        	if(!location.contains(domain)){
-	        		location = procol+domain+location;
-	        	}
-	        	if(StringUtils.isNotEmpty(location)){
-	        		response = HttpGetUtils.sendGet(location, isHttps,header);
-	        	}
+				if(StringUtils.isNoneEmpty(location)){
+					String domain = RegexUtils.getDomian(path);
+		        	String procol =  isHttps?"https://":"http://";
+		        	if(!location.contains(domain)){
+		        		location = procol+domain+location;
+		        	}
+		        	if(StringUtils.isNotEmpty(location)){
+		        		response = HttpGetUtils.sendGet(location, isHttps,header);
+		        	}
+				}
 			}
 	        return response;
 		} catch (Exception e) {
