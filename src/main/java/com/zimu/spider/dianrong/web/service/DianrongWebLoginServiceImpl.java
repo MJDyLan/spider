@@ -48,9 +48,4 @@ public class DianrongWebLoginServiceImpl extends BaseLoginService<DianrongWebLog
 		requestMap.put("password", password);
 		requestMap.put("captcha", authcode);
 	}
-	
-	public static void main(String[] args) {
-		DianrongWebLoginServiceImpl loginService = new DianrongWebLoginServiceImpl();
-		System.out.println(loginService.doLogin("13349910969", "qiujisheng89", ""));
-	}
 }

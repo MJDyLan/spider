@@ -11,6 +11,7 @@ import com.zimu.javacore.utils.JsonMapper;
 public class DianrongWebLoginModel {
 	
 	public static DianrongWebLoginModel getInstanceByJson(String resultStr){
+		System.out.println(resultStr);
 		JsonMapper mapper = JsonMapper.nonEmptyMapper();
 		return mapper.fromJson(resultStr, DianrongWebLoginModel.class);
 	}

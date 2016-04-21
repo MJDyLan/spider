@@ -51,4 +51,12 @@ public class HttpResponse {
 	public void setResponseHeader(String key,String value){
 		responseHeaderMap.put(key, value);
 	}
+	@Override
+	public String toString() {
+		return "HttpResponse [responseCode=" + responseCode + ", location="
+				+ location + ", in=" + in + ", responseBody=" + responseBody
+				+ ", url=" + url + ", responseHeaderMap=" + responseHeaderMap
+				+ "]";
+	}
+	
 }
