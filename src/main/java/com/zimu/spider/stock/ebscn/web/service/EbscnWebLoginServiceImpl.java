@@ -27,18 +27,17 @@ public class EbscnWebLoginServiceImpl extends BaseLoginService<String> implement
 
 	@Override
 	public void buildLoginParam(Map<String, Object> requestMap, String username, String password, String authcode) {
-		requestMap.put("funcNo", "1000302");
-		requestMap.put("accounttype", 1);
-		requestMap.put("account", "22431038");
-		requestMap.put("clientinfo", "");
-		requestMap.put("jsessionid", "");
+
 	}
 	public static void main(String[] args) {
 		EbscnWebLoginServiceImpl login = new EbscnWebLoginServiceImpl();
-		Map<String,Object> map = new HashMap<String, Object>();
-		login.buildLoginParam(map,"","","");
-		
-		HttpResponse response  = HttpPostUtils.sendPost("https://sc.ebscn.com/thinkweixinsite/servlet/json", map, true, new HashMap<String, Object>());
+		Map<String,Object> requestMap = new HashMap<String, Object>();
+		requestMap.put("funcNo", "1000302");
+		requestMap.put("accounttype", 1);
+		requestMap.put("account", "22431039");
+		requestMap.put("clientinfo", "");
+		requestMap.put("jsessionid", "");		
+		HttpResponse response  = HttpPostUtils.sendPost("https://sc.ebscn.com/thinkweixinsite/servlet/json", requestMap, true, new HashMap<String, Object>());
 		System.out.println(response.getResponseBody());
 		
 	}
