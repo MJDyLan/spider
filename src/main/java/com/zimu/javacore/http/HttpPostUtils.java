@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,7 +105,9 @@ public class HttpPostUtils {
 	public static String sendPostReq(String path,String params){
 		return sendPostReq(path,params,true,new HashMap<String,Object>());
 	}
-	
+	public static HttpResponse sendPost(String path){
+		return sendPost(path,new HashMap<String, Object>(),true,new HashMap<String, Object>());
+	}
 	public static HttpResponse sendPost(String path,Map<String,Object> requestMap,boolean isHttps,Map<String,Object> header){
 		HttpResponse response = new HttpResponse();
 		if(isHttps){

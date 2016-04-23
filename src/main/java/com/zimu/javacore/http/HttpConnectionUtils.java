@@ -105,6 +105,7 @@ public class HttpConnectionUtils {
 		response.setUrl(urlConnection.getURL().toString());
 		try {
 			response.setResponseCode(urlConnection.getResponseCode());
+			response.setIn(urlConnection.getInputStream());
 		} catch (final IOException e) {
 			response.setResponseCode(-1);
 		}
