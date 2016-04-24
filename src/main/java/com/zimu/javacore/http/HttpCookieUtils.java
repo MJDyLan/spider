@@ -22,7 +22,7 @@ public class HttpCookieUtils {
 	public static String getCookieValue(final HttpURLConnection urlConnection) {
 		String cookieStr = "";
 		String key;
-		for (int i = 1; (key = urlConnection.getHeaderFieldKey(i)) != null; i++) {
+		for (int i = 1;(key = urlConnection.getHeaderFieldKey(i)) != null; i++) {
 			if (key.equalsIgnoreCase("Set-cookie")) {
 				final String cookieVal = urlConnection.getHeaderField(i);
 				cookieStr += cookieVal + ";";

@@ -50,7 +50,7 @@ public class HttpGetUtils {
 		   if(conn.getResponseCode()==200){
 	            InputStream inStream = conn.getInputStream();   
 	            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
-	        }else if(conn.getResponseCode() > 300){
+	        }else if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(conn.getResponseCode()))){
 	        	String location = conn.getHeaderField("Location");
 	        	String domain = RegexUtils.getDomian(path);
 	        	String procol = isHttps?"https://":"http://";
@@ -64,7 +64,6 @@ public class HttpGetUtils {
 		} catch (Exception e) {
 			logger.error("发送get请求失败",e);
 		}
-       
 		return result;
 	}
 	public static String sendGetStrReq(String path,boolean isHttps){
@@ -84,7 +83,7 @@ public class HttpGetUtils {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public static String sendGetStrReq(String path){
-		return sendGetStrReq(path,false,false,new HashMap<String,Object>());
+		return sendGetStrReq(path,true,true,new HashMap<String,Object>());
 	}
 	/**
 	 * 

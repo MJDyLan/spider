@@ -105,11 +105,15 @@ public class HttpConnectionUtils {
 		response.setUrl(urlConnection.getURL().toString());
 		try {
 			response.setResponseCode(urlConnection.getResponseCode());
-			response.setIn(urlConnection.getInputStream());
+			//根据响应来处理inputstream
+			if(ConstHttp.CONTENT_TYPE_IMAGE.equals(urlConnection.getContentType())){
+				response.setIn(urlConnection.getInputStream());				
+			}else{
+				response.setResponseBody(getResponseBody(urlConnection));
+			}
 		} catch (final IOException e) {
-			response.setResponseCode(-1);
+			e.printStackTrace();
 		}
-		response.setResponseBody(getResponseBody(urlConnection));
 		//cookies
 		HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(urlConnection));
 		
@@ -130,21 +134,13 @@ public class HttpConnectionUtils {
 		InputStream in = null;
 		String responseBody = StringUtils.EMPTY;
 		try {
+			if(urlConnection==null)return responseBody;
 			in = urlConnection.getInputStream();
 			if(in!=null){
 				responseBody=new String(MyInputStreamUtils.stream2Byte(in), "UTF-8");
 			} 
 		}catch (Exception e){
 			e.printStackTrace();
-		}finally{
-			  if(in != null) {
-	                try {
-	                    //关闭流资源，需要再次捕捉异常
-	                    in.close();
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                }
-	            }
 		}
 		return responseBody;
 	}
