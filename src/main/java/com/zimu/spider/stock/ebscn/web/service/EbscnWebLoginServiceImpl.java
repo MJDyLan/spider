@@ -3,6 +3,7 @@ package com.zimu.spider.stock.ebscn.web.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.zimu.javacore.file.MyFileUtils;
 import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.http.HttpResponse;
 import com.zimu.spider.base.inter.BaseLoginService;
@@ -13,6 +14,10 @@ public class EbscnWebLoginServiceImpl extends BaseLoginService<String> implement
 	
 	@Override
 	public void doBefore() {
+		String captchCodeUrl = "https://sc.ebscn.com/thinkweixinsite/servlet/CaptchaServlet";
+		HttpResponse response = HttpPostUtils.sendPost(captchCodeUrl);
+		//保存验证码图片
+		MyFileUtils.saveImageToDisk(response.getIn(), "D://");
 	}
 
 	@Override
@@ -25,6 +30,15 @@ public class EbscnWebLoginServiceImpl extends BaseLoginService<String> implement
 
 	}
 	public static void main(String[] args) {
-	
+		EbscnWebLoginServiceImpl login = new EbscnWebLoginServiceImpl();
+		Map<String,Object> requestMap = new HashMap<String, Object>();
+		requestMap.put("funcNo", "1000303");
+		requestMap.put("accounttype", 1);
+		requestMap.put("account", "22431030");
+		requestMap.put("clientinfo", "");
+		requestMap.put("jsessionid", "");		
+		HttpResponse response  = HttpPostUtils.sendPost("https://sc.ebscn.com/thinkweixinsite/servlet/json", requestMap, true, new HashMap<String, Object>());
+		System.out.println(response.getResponseBody());
+		
 	}
 }
