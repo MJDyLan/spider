@@ -135,11 +135,12 @@ public class HttpPostUtils {
 	        outStream.close();
 	        HttpConnectionUtils.buildHttpResponseBy(response,conn);
 	        if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
-				String location = response.getLocation();
-				if(StringUtils.isNoneEmpty(location)){
+				String location = response.getResponseHeaderByKey(ConstHttp.LOCATION);
+				if(StringUtils.isNotEmpty(location)){
 					String domain = RegexUtils.getDomian(path);
 		        	String procol =  isHttps?"https://":"http://";
-		        	if(!location.contains(domain)){
+		        	//这里要写正则匹配
+		        	if(!location.contains(domain)&&!location.contains(procol)){
 		        		location = procol+domain+location;
 		        	}
 		        	if(StringUtils.isNotEmpty(location)){

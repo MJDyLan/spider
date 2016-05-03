@@ -27,7 +27,7 @@ public abstract class BaseLoginService<T> implements IBaseLoginSevice<T>{
 		buildLoginParam(requestMap, username, password, authcode);
 		HttpResponse response = HttpPostUtils.sendPost(getLoginUrl(), requestMap, isHttps(),header);
 		//父类组合登录请求步骤
-		System.out.println(response.toString());
+		System.err.println(response.toString());
 		return toModel(response.getResponseBody());
 	}
 	

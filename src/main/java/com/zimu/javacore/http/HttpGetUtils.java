@@ -136,7 +136,7 @@ public class HttpGetUtils {
 			HttpConnectionUtils.buildHttpResponseBy(response, conn);
 			
 			if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
-				String location = response.getLocation();
+				String location = response.getResponseHeaderByKey(ConstHttp.LOCATION);
 	        	String domain = RegexUtils.getDomian(path);
 	        	String procol = ishttps?"https://":"http://";
 	        	if(!location.contains(domain)){
