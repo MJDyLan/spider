@@ -128,8 +128,8 @@ public class HttpGetUtils {
 			  HttpConnectionUtils.buildHttpsURLConnection();
 			}
 	        HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
-
 			HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,header);
+			
 			//合并cookie
 			HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
 			

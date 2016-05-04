@@ -105,6 +105,9 @@ public class HttpPostUtils {
 	public static String sendPostReq(String path,String params){
 		return sendPostReq(path,params,true,new HashMap<String,Object>());
 	}
+	public static HttpResponse sendPost(String path,Map<String,Object> header){
+		return sendPost(path,new HashMap<String, Object>(),true,header);
+	}
 	public static HttpResponse sendPost(String path){
 		return sendPost(path,new HashMap<String, Object>(),true,new HashMap<String, Object>());
 	}

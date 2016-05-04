@@ -45,11 +45,14 @@ public class HttpCookieUtils {
 		if(StringUtils.isEmpty(cookie))return;
 		String source = CookieManager.getCookie();
 		if(StringUtils.isNotEmpty(source)){
-			source = ";"+cookie;
+			source += ";"+cookie;
 		}else{
 			source = cookie;
 		}
 		CookieManager.setCookie(source);
 		System.err.println("合并cookie"+source);
+	}
+	public static void clear(){
+		CookieManager.setCookie(null);
 	}
 }

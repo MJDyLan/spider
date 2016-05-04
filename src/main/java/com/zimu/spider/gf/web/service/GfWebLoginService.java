@@ -9,6 +9,7 @@ import com.zimu.javacore.http.ConstHttp;
 import com.zimu.javacore.http.CookieManager;
 import com.zimu.javacore.http.HttpCookieUtils;
 import com.zimu.javacore.http.HttpGetUtils;
+import com.zimu.javacore.http.HttpPostUtils;
 import com.zimu.javacore.http.HttpResponse;
 import com.zimu.spider.base.inter.BaseLoginService;
 import com.zimu.spider.gf.web.constant.GfWebConstant;
@@ -45,28 +46,38 @@ public final class GfWebLoginService extends BaseLoginService<String>{
 	
 	public static void main(String[] args) {
 		GfWebLoginService spider = new GfWebLoginService();
-		HttpResponse response = HttpGetUtils.sendGet(LOGIN_VERIFYCODE_URL);
+		
+    	String url333= "https://store.gf.com.cn/rest/user/session?_gfsrc=newgfw_x_x_home";
+		Map<String,Object> requestHeader21 = new HashMap<String, Object>();
+		requestHeader21.put(ConstHttp.REFERER, "http://new.gf.com.cn/");
+		requestHeader21.put(ConstHttp.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0");
+		HttpResponse response333= HttpGetUtils.sendGet(url333,requestHeader21);
+		System.err.println(response333.getResponseBody());
+		
+		Map<String,Object> requestHeader22 = new HashMap<String, Object>();
+		requestHeader22.put(ConstHttp.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0");
+		HttpResponse response = HttpGetUtils.sendGet(LOGIN_VERIFYCODE_URL,requestHeader22);
 		MyFileUtils.saveImageToDisk(response.getIn(),"E:\\verifyCode.png");
 		System.err.println("请输入验证码：");
 		Scanner scanner = new Scanner(System.in);
 		String verifyCode = scanner.nextLine();
 		System.err.println(verifyCode);
 		Map<String,Object> requestHeader = new HashMap<String, Object>();
-		requestHeader.put(ConstHttp.REFERER, "https://store.gf.com.cn/portal/index?_gfsrc=newgfw_x_x_home");
-		requestHeader.put(ConstHttp.USER_AGENT, "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+		requestHeader.put(ConstHttp.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0");
 		spider.buildHeader(requestHeader);
 		spider.doLogin("031100011802", "681376", verifyCode);
 		
-		String url = "https://store.gf.com.cn/rest/user/session?_gfsrc=newgfw_x_x_home";
-		HttpResponse response2 = HttpGetUtils.sendGet(url,requestHeader);
+		String url22 = "https://store.gf.com.cn/rest/user/session?_gfsrc=newgfw_x_x_home";
+		Map<String,Object> requestHeader23 = new HashMap<String, Object>();
+		requestHeader23.put(ConstHttp.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0");
+		spider.buildHeader(requestHeader23);
+		HttpResponse response22 = HttpGetUtils.sendGet(url22,requestHeader23);
+		System.err.println(response22.getResponseBody());
 		
-		System.err.println(response2.getResponseBody());
+		String url33= "https://store.gf.com.cn/rest/user/asset/total_value";
 		Map<String,Object> requestHeader2 = new HashMap<String, Object>();
-		requestHeader2.put(ConstHttp.REFERER, "https://store.gf.com.cn/mygf/asset");
-		requestHeader2.put(ConstHttp.USER_AGENT, "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-		String url3= "https://store.gf.com.cn/rest/user/asset/total_value";
-		HttpResponse response3 = HttpGetUtils.sendGet(url3,requestHeader2);
-		
-		System.err.println(response3.getResponseBody());
+		requestHeader2.put(ConstHttp.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0");
+		HttpResponse response33= HttpGetUtils.sendGet(url33,requestHeader2);
+		System.err.println(response33.getResponseBody());
 	}
 }
