@@ -29,6 +29,7 @@ public final class ConstHttp {
 	public static final String ACCEPT_CHARSET = "Accept-Charset";
 	public static final String ACCEPT_LANGUAGE = "Accept-Language";
 	public static final String CONNECTION = "Connection";
+	public static final String ACCEPT = "Accept";
 
 	public static final String HOST = "Host";
 	public static final String ETAG = "ETag";
@@ -50,6 +51,7 @@ public final class ConstHttp {
 	public static final String CONTENT_TYPE_TEXT_HTML = "text/html";
 	public static final String CONTENT_TYPE_IMAGE = "image/jpeg";
 	public static final String CONTENT_TYPE_JSON = "application/json";
+	public static final String CONTENT_TYPE_PLAIN = "text/plain";
 
 	public static final String CONTENT_ENCODING_GZIP = "gzip";
 

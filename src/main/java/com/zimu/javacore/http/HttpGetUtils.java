@@ -44,7 +44,7 @@ public class HttpGetUtils {
 
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,header);
 		//合并cookie
-		HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
+	//	HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
         String result ="";
 		try {
 		   if(conn.getResponseCode()==200){
@@ -103,7 +103,7 @@ public class HttpGetUtils {
 		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET);
 		
 		//保存cookie
-    	HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
+    	//HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
         try {
 			if(conn.getResponseCode()==200){
 			    InputStream inStream = conn.getInputStream();   
@@ -131,8 +131,6 @@ public class HttpGetUtils {
 			HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,header);
 			
 			//合并cookie
-			HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
-			
 			HttpConnectionUtils.buildHttpResponseBy(response, conn);
 			
 			if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){

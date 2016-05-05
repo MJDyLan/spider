@@ -4,6 +4,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.zimu.javacore.io.MyInputStreamUtils;
+
 public class HttpResponse {
 	
 	private int responseCode;
@@ -38,6 +42,14 @@ public class HttpResponse {
 		this.in = in;
 	}
 	public String getResponseBody() {
+		String responseBody = StringUtils.EMPTY;
+		try {
+			if(this.in!=null){
+				responseBody=new String(MyInputStreamUtils.stream2Byte(in), "UTF-8");
+			} 
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		return responseBody;
 	}
 	public void setResponseBody(String responseBody) {

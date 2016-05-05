@@ -8,6 +8,8 @@ public interface IBaseLoginSevice<T> {
 	
 	public void doBefore();
 	
+	public void doPullVerifyCodeImageOutputStream();
+	
 	public void buildHeader(Map<String,Object> header);
 	
 	public T toModel(String resultStr);

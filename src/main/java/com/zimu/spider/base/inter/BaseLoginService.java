@@ -12,6 +12,10 @@ public abstract class BaseLoginService<T> implements IBaseLoginSevice<T>{
 	//父类默认登录之前什么都不做,一般登录请求时，需要指明http请求的来源
 	public void buildHeader(Map<String,Object> map){}
 	
+	public void doPullVerifyCodeImageOutputStream(){
+		
+	}
+	
 	public abstract String getLoginUrl();
 	
 	public abstract void buildLoginParam(Map<String,Object> requestMap,String username,String password,String authcode);

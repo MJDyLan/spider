@@ -63,7 +63,7 @@ public class HttpPostUtils {
 	        		location = procol+domain+location;
 	        	}
 	        	//发现跳转重新设置cookie
-	        	HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
+	        	HttpCookieUtils.mergeCookie(conn);
 	        	
 	        	System.err.println("提交表单后302重定向后的cookie="+CookieManager.getCookie());
 	        	result = HttpGetUtils.sendGetStrReq(location,isHttps,true);

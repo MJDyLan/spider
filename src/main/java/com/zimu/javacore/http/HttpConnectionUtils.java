@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,9 @@ public class HttpConnectionUtils {
 		} catch (ProtocolException e) {
 		   logger.error("构建请求方式失败");
 		}
-        conn.setDoOutput(true);
+		if(method.equals(HttpMethod.POST)){
+			conn.setDoOutput(true);
+		}
         conn.setUseCaches(false);
         //设置cookie
         conn.setRequestProperty("Cookie", CookieManager.getCookie());
@@ -103,46 +106,23 @@ public class HttpConnectionUtils {
 			return;
 		}
 		response.setUrl(urlConnection.getURL().toString());
+		//设置cookies
+		HttpCookieUtils.mergeCookie(urlConnection);
 		try {
 			response.setResponseCode(urlConnection.getResponseCode());
+			System.err.println(urlConnection.getContentType());
 			//根据响应来处理inputstream
-			if(ConstHttp.CONTENT_TYPE_IMAGE.equals(urlConnection.getContentType())){
-				response.setIn(urlConnection.getInputStream());				
-			}else{
-				response.setResponseBody(getResponseBody(urlConnection));
-			}
+			response.setIn(urlConnection.getInputStream());
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		//cookies
-		HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(urlConnection));
-		
 		response.setResponseHeader(ConstHttp.CONTENT_LENGTH, urlConnection.getHeaderField(ConstHttp.CONTENT_LENGTH));
 		response.setResponseHeader(ConstHttp.CONTENT_TYPE, urlConnection.getHeaderField(ConstHttp.CONTENT_TYPE));
 		response.setResponseHeader(ConstHttp.EXPIRES, urlConnection.getHeaderField(ConstHttp.EXPIRES));
 		response.setResponseHeader(ConstHttp.CACHE_CONTROL, urlConnection.getHeaderField(ConstHttp.CACHE_CONTROL));
 		response.setResponseHeader(ConstHttp.LOCATION, urlConnection.getHeaderField(ConstHttp.LOCATION));
 	}
-	
-	/**
-	 * 拿到返回结果字符串 TODO 可能是整个html
-	 * 
-	 * @param urlConnection
-	 * @return
-	 */
-	public static String getResponseBody(final HttpURLConnection urlConnection) {
-		InputStream in = null;
-		String responseBody = StringUtils.EMPTY;
-		try {
-			if(urlConnection==null)return responseBody;
-			in = urlConnection.getInputStream();
-			if(in!=null){
-				responseBody=new String(MyInputStreamUtils.stream2Byte(in), "UTF-8");
-			} 
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return responseBody;
+	public static void main(String[] args) {
+		System.err.println(URLEncoder.encode("aaa==ccc&aas=asa"));
 	}
-
 }
