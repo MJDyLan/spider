@@ -110,7 +110,6 @@ public class HttpConnectionUtils {
 		HttpCookieUtils.mergeCookie(urlConnection);
 		try {
 			response.setResponseCode(urlConnection.getResponseCode());
-			System.err.println(urlConnection.getContentType());
 			//根据响应来处理inputstream
 			response.setIn(urlConnection.getInputStream());
 		} catch (final IOException e) {
