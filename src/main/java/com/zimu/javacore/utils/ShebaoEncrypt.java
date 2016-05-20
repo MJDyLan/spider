@@ -1,13 +1,8 @@
 package com.zimu.javacore.utils;
 
-import java.io.FileReader;
-
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.ContextFactory;
-import org.mozilla.javascript.Scriptable;
 
 public class ShebaoEncrypt {
-    private static ContextFactory contextFactory = ContextFactory.getGlobal();
+    /*private static ContextFactory contextFactory = ContextFactory.getGlobal();
     private static Scriptable scope;
 
     static {
@@ -59,5 +54,5 @@ public class ShebaoEncrypt {
 
     public static void main(String[] args) throws Exception {
 		System.out.println(stringToHex(encrypt("1112987hnisihnisi", "Qiujisheng89")));
-    }
+    }*/
 }
