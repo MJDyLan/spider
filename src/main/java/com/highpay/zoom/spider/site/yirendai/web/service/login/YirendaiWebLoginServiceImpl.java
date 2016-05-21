@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.constant.WebUrlConstant;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 /** 
  * @title 登录service
@@ -30,12 +30,12 @@ public class YirendaiWebLoginServiceImpl extends BaseLoginService<String> implem
 	@Override
 	public void generateAuthCode(){
 		String authcode_url = WebUrlConstant.YIRENDAI_AUTH_CODE_URL;
-		HttpGetUtils.sendGetFileReq(authcode_url, true);
+		HttpGetUtils.sendGetString(authcode_url, true);
 	}
 	
 	@Override
 	public String getCmsHeaderInfo() {
-		return HttpGetUtils.sendGetStrReq(WebUrlConstant.YIRENDAI_CMSHEADER_URL, false, true);
+		return HttpGetUtils.sendGetString(WebUrlConstant.YIRENDAI_CMSHEADER_URL, false, true);
 	}
 
 	@Override

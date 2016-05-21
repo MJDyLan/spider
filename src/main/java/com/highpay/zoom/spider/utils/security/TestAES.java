@@ -1,6 +1,6 @@
-package com.highpay.zoom.spider.security;
+package com.highpay.zoom.spider.utils.security;
 
-import com.highpay.zoom.spider.http.HttpPostUtils;
+import com.highpay.zoom.spider.utils.http.HttpPostUtils;
 
 
 /** 

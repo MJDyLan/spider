@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.http;
+package com.highpay.zoom.spider.utils.http;
 
 /**
  * @title http相关的常量
@@ -6,7 +6,7 @@ package com.highpay.zoom.spider.http;
  * @author jisheng
  *
  */
-public final class ConstHttp {
+public final class HttpConst {
 
 	public static final String PROTOCOL_HTTP = "http";
 	public static final String PROTOCOL_HTTPS = "https";

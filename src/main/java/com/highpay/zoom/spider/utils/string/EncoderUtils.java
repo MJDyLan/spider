@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.utils;
+package com.highpay.zoom.spider.utils.string;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

@@ -10,10 +10,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.constant.WebUrlConstant;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
 import com.highpay.zoom.spider.site.dianrong.web.model.DianrongWebLoginModel;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 /**
  * @author jasonChiu

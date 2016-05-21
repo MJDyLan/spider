@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 public class JimuboxWebLoginServiceImpl extends BaseLoginService<String> implements JimuboxWebLoginService {
 	private volatile String site = StringUtils.EMPTY;

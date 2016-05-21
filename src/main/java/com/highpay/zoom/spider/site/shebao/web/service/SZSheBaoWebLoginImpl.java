@@ -3,9 +3,9 @@ package com.highpay.zoom.spider.site.shebao.web.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.highpay.zoom.spider.http.ConstHttp;
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpConst;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 public class SZSheBaoWebLoginImpl extends BaseLoginService<String>{
 
@@ -30,7 +30,7 @@ public class SZSheBaoWebLoginImpl extends BaseLoginService<String>{
 	public static void main(String[] args) {
 		SZSheBaoWebLoginImpl szLogin = new SZSheBaoWebLoginImpl();
 		Map<String,Object> header = new HashMap<String, Object>();
-		header.put(ConstHttp.REFERER, "http://www.szsi.gov.cn/ywcq/grsbcx/");
+		header.put(HttpConst.REFERER, "http://www.szsi.gov.cn/ywcq/grsbcx/");
 
 		System.out.println(HttpGetUtils.sendGet("https://wssb6.szsi.gov.cn/NetApplyWeb/personacctoutInput.jsp"));
 		//String authCode = "https://wssb6.szsi.gov.cn/NetApplyWeb/CImages";

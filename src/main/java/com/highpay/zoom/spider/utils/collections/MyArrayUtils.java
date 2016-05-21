@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.utils;
+package com.highpay.zoom.spider.utils.collections;
 
 import org.apache.commons.lang3.ArrayUtils;
 /**

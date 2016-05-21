@@ -4,7 +4,7 @@
  * @time 2016年1月28日下午7:33:24
  * @version 1.0
  */
-package com.highpay.zoom.spider.security;
+package com.highpay.zoom.spider.utils.security;
 
 import java.util.HashMap;
 import java.util.UUID;

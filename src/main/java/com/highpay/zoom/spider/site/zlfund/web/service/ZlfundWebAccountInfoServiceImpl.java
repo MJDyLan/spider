@@ -3,7 +3,7 @@ package com.highpay.zoom.spider.site.zlfund.web.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 public class ZlfundWebAccountInfoServiceImpl implements ZlfundWebAccountInfoService{
 	private Map<String, Object> header = new HashMap<String, Object>();
@@ -25,7 +25,7 @@ public class ZlfundWebAccountInfoServiceImpl implements ZlfundWebAccountInfoServ
 	@Override
 	public String doAccount() {
 		addHeader();
-		String result = HttpGetUtils.sendGetStrReq(getAccountInfoUrl(), true, true, header);		
+		String result = HttpGetUtils.sendGetString(getAccountInfoUrl(), true, true, header);		
 		System.err.println(result);
 		return result;
 	}

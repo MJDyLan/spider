@@ -4,17 +4,17 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.highpay.zoom.spider.http.HttpCookieUtils;
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.constant.WebUrlConstant;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpCookieUtils;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 public class ZlfundWebLoginServiceImpl extends BaseLoginService<String> implements ZlfundWebLoginService {
 	private String csrftoken = StringUtils.EMPTY;	
 	@Override
 	public void doBefore() {
 		String url = "https://www.zlfund.cn/accounts/login/";
-		HttpGetUtils.sendGetStrReq(url, true, true);
+		HttpGetUtils.sendGetString(url, true, true);
 		this.csrftoken = HttpCookieUtils.getCookieByKey("csrftoken");
 	}
 	

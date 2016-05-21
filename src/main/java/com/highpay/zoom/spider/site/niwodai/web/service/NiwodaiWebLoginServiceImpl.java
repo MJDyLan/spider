@@ -2,9 +2,9 @@ package com.highpay.zoom.spider.site.niwodai.web.service;
 
 import java.util.Map;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.constant.WebUrlConstant;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 public class NiwodaiWebLoginServiceImpl extends BaseLoginService<String> implements NiwodaiWebLoginService {
 
@@ -36,6 +36,6 @@ public class NiwodaiWebLoginServiceImpl extends BaseLoginService<String> impleme
 		System.err.println(login.doLogin("13349910969", "qiujisheng89", ""));
 		
 		String url = "https://member.niwodai.com/member/investorsAjax.do";
-		System.err.println(HttpGetUtils.sendGetStrReq(url, true, true));
+		System.err.println(HttpGetUtils.sendGetString(url, true, true));
 	}
 }

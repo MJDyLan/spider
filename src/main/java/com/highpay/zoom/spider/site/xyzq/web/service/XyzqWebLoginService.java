@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.highpay.zoom.spider.http.ConstHttp;
-import com.highpay.zoom.spider.http.HttpGetUtils;
-import com.highpay.zoom.spider.http.HttpResponse;
-import com.highpay.zoom.spider.io.MyFileUtils;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
-import com.highpay.zoom.spider.utils.JsonMapper;
+import com.highpay.zoom.spider.utils.http.HttpConst;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
+import com.highpay.zoom.spider.utils.http.HttpResponse;
+import com.highpay.zoom.spider.utils.io.MyFileUtils;
+import com.highpay.zoom.spider.utils.json.JsonMapper;
 
 /**
  * 
@@ -55,8 +55,8 @@ public final class XyzqWebLoginService extends BaseLoginService<String> {
 		//https://estock.xyzq.com.cn/validation/img/inspection?name=170024935&_=1462756527857
 		String url = XyzqWebConstant.VALIDATE_USERNAME_URL+"?_="+System.currentTimeMillis()+"&name="+username;
 		Map<String,Object> requestMap = new HashMap<String, Object>();
-		requestMap.put(ConstHttp.ACCEPT, ConstHttp.CONTENT_TYPE_JSON);
-		requestMap.put(ConstHttp.REFERER, LOGIN_URL);
+		requestMap.put(HttpConst.ACCEPT, HttpConst.CONTENT_TYPE_JSON);
+		requestMap.put(HttpConst.REFERER, LOGIN_URL);
 		HttpResponse response = HttpGetUtils.sendGet(url,requestMap);
 		String result = response.getResponseBody();
 		JsonMapper mapper = JsonMapper.nonEmptyMapper();
@@ -69,8 +69,8 @@ public final class XyzqWebLoginService extends BaseLoginService<String> {
 	
 	@Override
 	public void buildHeader(Map<String, Object> map) {
-		map.put(ConstHttp.ACCEPT, ConstHttp.CONTENT_TYPE_JSON);
-		map.put(ConstHttp.REFERER, LOGIN_URL);
+		map.put(HttpConst.ACCEPT, HttpConst.CONTENT_TYPE_JSON);
+		map.put(HttpConst.REFERER, LOGIN_URL);
 	}
 
 	static class Result{

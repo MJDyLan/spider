@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.http;
+package com.highpay.zoom.spider.utils.http;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.highpay.zoom.spider.io.MyInputStreamUtils;
-import com.highpay.zoom.spider.utils.RegexUtils;
+import com.highpay.zoom.spider.utils.io.MyIOUtils;
+import com.highpay.zoom.spider.utils.regex.RegexUtils;
 
 public class HttpGetUtils {
 	private static final Logger logger = LoggerFactory.getLogger(HttpPostUtils.class);
@@ -30,29 +30,31 @@ public class HttpGetUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie,Map<String,Object> header){
+	public static String sendGetString(String path,boolean isHttps,boolean isNeedCookie,Map<String,Object> header){
         if(isHttps){
 		  HttpConnectionUtils.buildHttpsURLConnection();
 		}
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
 
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,header);
+		HttpConnectionUtils.buildHeader(conn, HttpConst.HTTP_GET,header);
 		//合并cookie
-	//	HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
+		HttpCookieUtils.mergeCookie(conn);
         String result ="";
 		try {
 		   if(conn.getResponseCode()==200){
 	            InputStream inStream = conn.getInputStream();   
-	            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
-	        }else if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(conn.getResponseCode()))){
+	            //这样也存在局限性，认为返回的一定是字符串
+	            result=new String(MyIOUtils.stream2Byte(inStream), "UTF-8");
+	        }else if(HttpConst.STATUS_CODE_REDIRECT.contains(String.valueOf(conn.getResponseCode()))){
 	        	String location = conn.getHeaderField("Location");
+	        	//这里处理的也存在问题，域名解析与拼装
 	        	String domain = RegexUtils.getDomian(path);
 	        	String procol = isHttps?"https://":"http://";
 	        	if(!location.contains(domain)){
 	        		location = procol+domain+location;
 	        	}
 	        	if(StringUtils.isNotEmpty(location)){
-	        		result = sendGetStrReq(location,isHttps,true);
+	        		result = sendGetString(location,isHttps,true);
 	        	}
 	        }
 		} catch (Exception e) {
@@ -60,24 +62,11 @@ public class HttpGetUtils {
 		}
 		return result;
 	}
-	public static String sendGetStrReq(String path,boolean isHttps){
-		return sendGetStrReq(path, isHttps, true, new HashMap<String, Object>());
+	public static String sendGetString(String path,boolean isHttps){
+		return sendGetString(path, isHttps, true, new HashMap<String, Object>());
 	}
-	public static String sendGetStrReq(String path,boolean isHttps,boolean isNeedCookie){
-		return sendGetStrReq(path, isHttps, isNeedCookie, new HashMap<String, Object>());
-	}
-	/**
-	 * 
-	 * @title 发送get请求，返回字符串
-	 * 
-	 * @author JasonChiu
-	 * @time 2016年1月21日下午11:46:31
-	 * @version 1.0
-	 * @throws IOException 
-	 * @throws UnsupportedEncodingException 
-	 */
-	public static String sendGetStrReq(String path){
-		return sendGetStrReq(path,true,true,new HashMap<String,Object>());
+	public static String sendGetString(String path,boolean isHttps,boolean isNeedCookie){
+		return sendGetString(path, isHttps, isNeedCookie, new HashMap<String, Object>());
 	}
 	/**
 	 * 
@@ -89,27 +78,10 @@ public class HttpGetUtils {
 	 * @throws IOException 
 	 * @throws UnsupportedEncodingException 
 	 */
-	public static void sendGetFileReq(String path,boolean isHttps) {
-		if(isHttps){
-			HttpConnectionUtils.buildHttpsURLConnection();
-		}
-		HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.GET);
-		
-		//保存cookie
-    	//HttpCookieUtils.mergeCookie(HttpCookieUtils.getCookieValue(conn));
-        try {
-			if(conn.getResponseCode()==200){
-			    InputStream inStream = conn.getInputStream();   
-			    MyInputStreamUtils.stream2File(inStream, "", "");
-			}
-		} catch (IOException e) {
-			logger.error("发送get请求失败",e);
-		}
+	public static String sendGetString(String path){
+		return sendGetString(path,true,true,new HashMap<String,Object>());
 	}
-	public static void sendGetFileReq(String path){
-		sendGetFileReq(path, false);
-	}
+
 	public static HttpResponse sendGet(String path,Map<String,Object> header){
 		return sendGet(path,true,header);
 	}
@@ -122,13 +94,13 @@ public class HttpGetUtils {
 			  HttpConnectionUtils.buildHttpsURLConnection();
 			}
 	        HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
-			HttpConnectionUtils.buildHeader(conn, HttpMethod.GET,header);
+			HttpConnectionUtils.buildHeader(conn, HttpConst.HTTP_GET,header);
 			
 			//合并cookie
 			HttpConnectionUtils.buildHttpResponseBy(response, conn);
 			
-			if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
-				String location = response.getResponseHeaderByKey(ConstHttp.LOCATION);
+			if(HttpConst.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
+				String location = response.getResponseHeaderByKey(HttpConst.LOCATION);
 	        	String domain = RegexUtils.getDomian(path);
 	        	String procol = ishttps?"https://":"http://";
 	        	if(!location.contains(domain)){

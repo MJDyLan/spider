@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.http;
+package com.highpay.zoom.spider.utils.http;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

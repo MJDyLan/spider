@@ -11,9 +11,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.highpay.zoom.spider.security.MD5Utils;
 import com.highpay.zoom.spider.site.base.constant.WebUrlConstant;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.security.MD5Utils;
 
 /**
  * @author jasonChiu

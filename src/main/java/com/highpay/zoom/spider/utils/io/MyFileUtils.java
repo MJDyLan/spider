@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.io;
+package com.highpay.zoom.spider.utils.io;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

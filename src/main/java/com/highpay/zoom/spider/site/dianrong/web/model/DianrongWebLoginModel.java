@@ -1,6 +1,6 @@
 package com.highpay.zoom.spider.site.dianrong.web.model;
 
-import com.highpay.zoom.spider.utils.JsonMapper;
+import com.highpay.zoom.spider.utils.json.JsonMapper;
 
 /**
  * @author jasonChiu

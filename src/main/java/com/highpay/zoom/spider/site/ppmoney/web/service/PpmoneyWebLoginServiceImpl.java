@@ -2,9 +2,9 @@ package com.highpay.zoom.spider.site.ppmoney.web.service;
 
 import java.util.Map;
 
-import com.highpay.zoom.spider.http.HttpCookieUtils;
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpCookieUtils;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 public class PpmoneyWebLoginServiceImpl extends BaseLoginService<String> implements PpmoneyWebLoginService {
 

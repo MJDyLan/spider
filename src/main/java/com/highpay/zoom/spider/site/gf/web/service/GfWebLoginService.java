@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.highpay.zoom.spider.http.ConstHttp;
-import com.highpay.zoom.spider.http.HttpGetUtils;
-import com.highpay.zoom.spider.http.HttpResponse;
-import com.highpay.zoom.spider.io.MyFileUtils;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
 import com.highpay.zoom.spider.site.gf.web.constant.GfWebConstant;
+import com.highpay.zoom.spider.utils.http.HttpConst;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
+import com.highpay.zoom.spider.utils.http.HttpResponse;
+import com.highpay.zoom.spider.utils.io.MyFileUtils;
 
 /**
  * 
@@ -49,7 +49,7 @@ public final class GfWebLoginService extends BaseLoginService<String>{
 		System.err.println(response333.getResponseBody());
 		
 		Map<String,Object> requestHeader22 = new HashMap<String, Object>();
-		requestHeader22.put(ConstHttp.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0");
+		requestHeader22.put(HttpConst.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0");
 		HttpResponse response = HttpGetUtils.sendGet(LOGIN_VERIFYCODE_URL,requestHeader22);
 		MyFileUtils.saveImageToDisk(response.getIn(),"E:\\verifyCode.png");
 		System.err.println("请输入验证码：");

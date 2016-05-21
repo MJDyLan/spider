@@ -12,9 +12,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.highpay.zoom.spider.http.HttpPostUtils;
 import com.highpay.zoom.spider.site.base.constant.WebUrlConstant;
-import com.highpay.zoom.spider.utils.MapUtils;
+import com.highpay.zoom.spider.utils.collections.MyMapUtils;
+import com.highpay.zoom.spider.utils.http.HttpPostUtils;
 
 /**
  * @author jasonChiu
@@ -41,7 +41,7 @@ public class TounaWebAccountServiceImpl implements TounaWebAccountService {
 	public String doAccount() {
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildRequestParam(requestMap);
-		String result  = HttpPostUtils.sendPostReq(getAccountInfoUrl(), MapUtils.getParamStringEncoder(requestMap));
+		String result  = HttpPostUtils.sendPostReq(getAccountInfoUrl(), MyMapUtils.getParamStringEncoder(requestMap));
 
 		return result;
 	}

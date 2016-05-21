@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.highpay.zoom.spider.http;
+package com.highpay.zoom.spider.utils.http;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.highpay.zoom.spider.utils.MyArrayUtils;
+import com.highpay.zoom.spider.utils.collections.MyArrayUtils;
 
 
 /**
@@ -45,7 +45,7 @@ public class HttpCookieUtils {
 	}
 	public static String getCookieByKey(String key){
 		String value = StringUtils.EMPTY;
-		String cookie = CookieManager.getCookie();
+		String cookie = CookieContextThreadLocal.getCookie();
 		Map<String,String> sourceMap = getCookieString2Map(cookie);
 		if(MapUtils.isNotEmpty(sourceMap)){
 			value = MapUtils.getString(sourceMap, key);
@@ -59,14 +59,14 @@ public class HttpCookieUtils {
 	 */
 	public static void mergeCookie(String newCookie){
 		//检查是否存在源cookie
-		String source = CookieManager.getCookie();
+		String source = CookieContextThreadLocal.getCookie();
 		Map<String, String> sourceMap = getCookieString2Map(source);
 		//合并新老cookie
 		mergeCookie(sourceMap,newCookie);
 		//在将cookie转成string，放入cookie管理
 		String cookie = getCookieMap2String(sourceMap);
 		System.err.println(cookie);
-		CookieManager.setCookie(cookie);
+		CookieContextThreadLocal.setCookie(cookie);
 	}
 	
 	/**
@@ -77,20 +77,20 @@ public class HttpCookieUtils {
 		//获取源cookie，放入新cookie
 		List<String> cookieList = getCookieList(urlConnection);
 		//检查是否存在源cookie
-		String source = CookieManager.getCookie();
+		String source = CookieContextThreadLocal.getCookie();
 		Map<String, String> sourceMap = getCookieString2Map(source);
 		//合并新老cookie
 		mergeCookie(sourceMap,cookieList);
 		//在将cookie转成string，放入cookie管理
 		String newCookie = getCookieMap2String(sourceMap);
 		System.err.println("合并后的cookie："+newCookie);
-		CookieManager.setCookie(newCookie);
+		CookieContextThreadLocal.setCookie(newCookie);
 	}
 	/**
 	 * 清楚cookie值
 	 */
 	public static void clear(){
-		CookieManager.setCookie(null);
+		CookieContextThreadLocal.setCookie(null);
 	}
 	public static String getCookieMap2String(Map<String,String> cookieMap){
 		StringBuilder sb = new StringBuilder();
@@ -115,7 +115,7 @@ public class HttpCookieUtils {
 		if (null == headerFields) {
 			return cookies;
 		}
-		cookies = headerFields.get(ConstHttp.SET_COOKIE);
+		cookies = headerFields.get(HttpConst.SET_COOKIE);
 		if (CollectionUtils.isEmpty(cookies)) {
 		    return cookies;
 		}

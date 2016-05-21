@@ -1,11 +1,11 @@
-package com.highpay.zoom.spider.io;
+package com.highpay.zoom.spider.utils.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MyInputStreamUtils {
+public class MyIOUtils {
 	/**
 	 * 
 	 * @title 将inputStream转字节数字

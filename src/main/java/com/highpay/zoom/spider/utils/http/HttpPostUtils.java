@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.http;
+package com.highpay.zoom.spider.utils.http;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,10 +12,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.highpay.zoom.spider.io.MyInputStreamUtils;
-import com.highpay.zoom.spider.utils.JsonMapper;
-import com.highpay.zoom.spider.utils.MapUtils;
-import com.highpay.zoom.spider.utils.RegexUtils;
+import com.highpay.zoom.spider.utils.collections.MyMapUtils;
+import com.highpay.zoom.spider.utils.io.MyIOUtils;
+import com.highpay.zoom.spider.utils.json.JsonMapper;
+import com.highpay.zoom.spider.utils.regex.RegexUtils;
 
 public class HttpPostUtils {
 	private static final Logger logger = LoggerFactory.getLogger(HttpPostUtils.class);
@@ -38,7 +38,7 @@ public class HttpPostUtils {
 		}
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
        
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,header);
+		HttpConnectionUtils.buildHeader(conn, HttpConst.HTTP_POST,header);
 		String result ="";
 		try {
 			DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
@@ -50,9 +50,9 @@ public class HttpPostUtils {
 	            InputStream inStream = conn.getInputStream();
 	          //保存cookie
 	            System.err.println("cookie list:"+conn.getHeaderFields().get("Set-Cookie").toString());
-	    		CookieManager.setCookie(conn.getHeaderFields().get("Set-Cookie").toString());
+	    		CookieContextThreadLocal.setCookie(conn.getHeaderFields().get("Set-Cookie").toString());
 	    		System.err.println("提交表单后200的cookie："+HttpCookieUtils.getCookieValue(conn));
-	            result=new String(MyInputStreamUtils.stream2Byte(inStream), "UTF-8");
+	            result=new String(MyIOUtils.stream2Byte(inStream), "UTF-8");
 	        }else if(conn.getResponseCode() >300){
 	        	String location = conn.getHeaderField("Location");
 	        	//这时location可能没有带域名
@@ -65,8 +65,8 @@ public class HttpPostUtils {
 	        	//发现跳转重新设置cookie
 	        	HttpCookieUtils.mergeCookie(conn);
 	        	
-	        	System.err.println("提交表单后302重定向后的cookie="+CookieManager.getCookie());
-	        	result = HttpGetUtils.sendGetStrReq(location,isHttps,true);
+	        	System.err.println("提交表单后302重定向后的cookie="+CookieContextThreadLocal.getCookie());
+	        	result = HttpGetUtils.sendGetString(location,isHttps,true);
 	        }
 		} catch (Exception e) {
 			logger.error("发送post请求异常", e);
@@ -118,27 +118,27 @@ public class HttpPostUtils {
 		}
         HttpURLConnection conn = HttpConnectionUtils.getConnection(path);
        
-		HttpConnectionUtils.buildHeader(conn, HttpMethod.POST,header);
+		HttpConnectionUtils.buildHeader(conn, HttpConst.HTTP_POST,header);
 		String contentType =StringUtils.EMPTY;
-		if(header!=null && header.get(ConstHttp.CONTENT_TYPE)!=null){
-			 contentType = header.get(ConstHttp.CONTENT_TYPE).toString();
+		if(header!=null && header.get(HttpConst.CONTENT_TYPE)!=null){
+			 contentType = header.get(HttpConst.CONTENT_TYPE).toString();
 		}
 		try {
 			DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
 			String paramString = StringUtils.EMPTY;
-			if(contentType.contains(ConstHttp.CONTENT_TYPE_JSON)){
+			if(contentType.contains(HttpConst.CONTENT_TYPE_JSON)){
 				JsonMapper mapper = JsonMapper.nonDefaultMapper();
 				paramString = mapper.toJson(requestMap);
 			}else{
-				paramString = MapUtils.getParamStringEncoder(requestMap);
+				paramString = MyMapUtils.getParamStringEncoder(requestMap);
 			}
 			//根据content_type来确定怎么处理参数
 	        outStream.write(paramString.getBytes());
 	        outStream.flush();
 	        outStream.close();
 	        HttpConnectionUtils.buildHttpResponseBy(response,conn);
-	        if(ConstHttp.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
-				String location = response.getResponseHeaderByKey(ConstHttp.LOCATION);
+	        if(HttpConst.STATUS_CODE_REDIRECT.contains(String.valueOf(response.getResponseCode()))){
+				String location = response.getResponseHeaderByKey(HttpConst.LOCATION);
 				if(StringUtils.isNotEmpty(location)){
 					String domain = RegexUtils.getDomian(path);
 		        	String procol =  isHttps?"https://":"http://";

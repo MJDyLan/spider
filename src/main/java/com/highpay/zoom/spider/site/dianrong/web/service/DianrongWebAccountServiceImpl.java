@@ -11,8 +11,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
 import com.highpay.zoom.spider.site.base.constant.WebUrlConstant;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
 
 /**
  * @author jasonChiu
@@ -36,7 +36,7 @@ public class DianrongWebAccountServiceImpl implements DianrongWebAccountService 
 	public String doAccount() {
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		buildRequestParam(requestMap);
-		String result = HttpGetUtils.sendGetStrReq(getAccountInfoUrl(), true, true);
+		String result = HttpGetUtils.sendGetString(getAccountInfoUrl(), true, true);
 		return result;
 	}
 

@@ -3,10 +3,10 @@ package com.highpay.zoom.spider.site.gjj.web.service;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
-import com.highpay.zoom.spider.http.HttpResponse;
-import com.highpay.zoom.spider.io.MyFileUtils;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
+import com.highpay.zoom.spider.utils.http.HttpResponse;
+import com.highpay.zoom.spider.utils.io.MyFileUtils;
 
 public class SZGjjWebLoginImpl extends BaseLoginService<String>{
 

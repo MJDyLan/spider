@@ -8,11 +8,11 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.highpay.zoom.spider.security.CryptDesUtils;
 import com.highpay.zoom.spider.site.base.constant.AppUrlConstant;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
 import com.highpay.zoom.spider.site.fbank.app.constant.FBankAppConstant;
-import com.highpay.zoom.spider.utils.EncoderUtils;
+import com.highpay.zoom.spider.utils.security.CryptDesUtils;
+import com.highpay.zoom.spider.utils.string.EncoderUtils;
 
 public class FbankAPPLoginServiceImpl extends BaseLoginService<String> implements FbankAPPLoginService {
 	private static Logger logger = LoggerFactory.getLogger(FbankAPPLoginServiceImpl.class);

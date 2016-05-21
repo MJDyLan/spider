@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.highpay.zoom.spider.http.HttpGetUtils;
-import com.highpay.zoom.spider.utils.JsonMapper;
+import com.highpay.zoom.spider.utils.http.HttpGetUtils;
+import com.highpay.zoom.spider.utils.json.JsonMapper;
 
 @Service("spiderFundDataTaskService")
 public class StockDataTaskServiceImpl implements StockDataTaskService {

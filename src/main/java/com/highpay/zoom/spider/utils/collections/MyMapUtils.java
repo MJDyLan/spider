@@ -1,10 +1,13 @@
-package com.highpay.zoom.spider.utils;
+package com.highpay.zoom.spider.utils.collections;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import com.highpay.zoom.spider.utils.string.EncoderUtils;
+import com.highpay.zoom.spider.utils.string.StringComparator;
 
 /** 
  * @title 对Map的操作封装，可以写一点针对map key or value排序的策略
@@ -13,7 +16,7 @@ import java.util.TreeMap;
  * @time 2016年1月7日上午1:16:42
  * @version 1.0
  */
-public class MapUtils {
+public class MyMapUtils {
 	//将Map中的属性key按照ASCII码排序
 	public static Map<String,Object> sortMapByKey(Map<String,Object> requestMap){
 		if(requestMap == null || requestMap.isEmpty()){
@@ -86,7 +89,7 @@ public class MapUtils {
 		
 		Set<String> keys = map.keySet();
 		
-		MapUtils.sortMapByKey(map);
+		MyMapUtils.sortMapByKey(map);
 		System.out.println(map.toString());
 		System.out.println(keys.toString());
 	}

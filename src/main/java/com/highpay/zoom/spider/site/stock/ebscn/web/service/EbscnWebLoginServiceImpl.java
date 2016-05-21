@@ -3,10 +3,10 @@ package com.highpay.zoom.spider.site.stock.ebscn.web.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.highpay.zoom.spider.http.HttpPostUtils;
-import com.highpay.zoom.spider.http.HttpResponse;
-import com.highpay.zoom.spider.io.MyFileUtils;
 import com.highpay.zoom.spider.site.base.inter.BaseLoginService;
+import com.highpay.zoom.spider.utils.http.HttpPostUtils;
+import com.highpay.zoom.spider.utils.http.HttpResponse;
+import com.highpay.zoom.spider.utils.io.MyFileUtils;
 
 public class EbscnWebLoginServiceImpl extends BaseLoginService<String> implements IEbscnWebLoginService<String> {
 

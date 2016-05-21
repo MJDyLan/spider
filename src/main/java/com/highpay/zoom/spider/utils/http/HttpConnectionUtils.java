@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.http;
+package com.highpay.zoom.spider.utils.http;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -19,6 +19,7 @@ import javax.net.ssl.TrustManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.util.CollectionUtils;
 /**
  * 
@@ -56,7 +57,7 @@ public class HttpConnectionUtils {
 		}
         conn.setUseCaches(false);
         //设置cookie
-        conn.setRequestProperty("Cookie", CookieManager.getCookie());
+        conn.setRequestProperty("Cookie", CookieContextThreadLocal.getCookie());
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("Accept-Charset", "utf-8");
         conn.setRequestProperty("Connection", "Keep-Alive");
@@ -118,11 +119,11 @@ public class HttpConnectionUtils {
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		response.setResponseHeader(ConstHttp.CONTENT_LENGTH, urlConnection.getHeaderField(ConstHttp.CONTENT_LENGTH));
-		response.setResponseHeader(ConstHttp.CONTENT_TYPE, urlConnection.getHeaderField(ConstHttp.CONTENT_TYPE));
-		response.setResponseHeader(ConstHttp.EXPIRES, urlConnection.getHeaderField(ConstHttp.EXPIRES));
-		response.setResponseHeader(ConstHttp.CACHE_CONTROL, urlConnection.getHeaderField(ConstHttp.CACHE_CONTROL));
-		response.setResponseHeader(ConstHttp.LOCATION, urlConnection.getHeaderField(ConstHttp.LOCATION));
+		response.setResponseHeader(HttpConst.CONTENT_LENGTH, urlConnection.getHeaderField(HttpConst.CONTENT_LENGTH));
+		response.setResponseHeader(HttpConst.CONTENT_TYPE, urlConnection.getHeaderField(HttpConst.CONTENT_TYPE));
+		response.setResponseHeader(HttpConst.EXPIRES, urlConnection.getHeaderField(HttpConst.EXPIRES));
+		response.setResponseHeader(HttpConst.CACHE_CONTROL, urlConnection.getHeaderField(HttpConst.CACHE_CONTROL));
+		response.setResponseHeader(HttpConst.LOCATION, urlConnection.getHeaderField(HttpConst.LOCATION));
 	}
 	public static void main(String[] args) {
 		System.err.println(URLEncoder.encode("aaa==ccc&aas=asa"));

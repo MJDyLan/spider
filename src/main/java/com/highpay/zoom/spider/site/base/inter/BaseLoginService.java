@@ -3,8 +3,8 @@ package com.highpay.zoom.spider.site.base.inter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.highpay.zoom.spider.http.HttpPostUtils;
-import com.highpay.zoom.spider.http.HttpResponse;
+import com.highpay.zoom.spider.utils.http.HttpPostUtils;
+import com.highpay.zoom.spider.utils.http.HttpResponse;
 
 public abstract class BaseLoginService<T> implements IBaseLoginSevice<T>{
 	//父类默认登录之前什么都不做,一般是登录之前，请求保存cookie

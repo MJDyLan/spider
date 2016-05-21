@@ -1,4 +1,4 @@
-package com.highpay.zoom.spider.security;
+package com.highpay.zoom.spider.utils.security;
 
 import java.security.MessageDigest;
 
