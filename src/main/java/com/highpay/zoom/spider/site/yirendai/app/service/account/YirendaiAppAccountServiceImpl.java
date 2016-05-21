@@ -39,7 +39,7 @@ public class YirendaiAppAccountServiceImpl implements YirendaiAppAccountService 
 	public String doAccount() {
 		Map<String, Object> requestMap  = new HashMap<String, Object>();
 		buildRequestParam(requestMap);
-		String result = HttpPostUtils.sendPostReq(getAccountInfoUrl(), MyMapUtils.getParamStringEncoder(requestMap),true);
+		String result = HttpPostUtils.sendPostString(getAccountInfoUrl(), MyMapUtils.getParamStringEncoder(requestMap),true);
 		return result;
 	}
 

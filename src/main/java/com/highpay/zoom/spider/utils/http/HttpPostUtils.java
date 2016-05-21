@@ -32,7 +32,7 @@ public class HttpPostUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendPostReq(String path,String params,boolean isHttps,Map<String,Object> header){
+	public static String sendPostString(String path,String params,boolean isHttps,Map<String,Object> header){
 		if(isHttps){
 			HttpConnectionUtils.buildHttpsURLConnection();
 		}
@@ -86,8 +86,8 @@ public class HttpPostUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendPostReq(String path,String params,boolean isHttps){
-		return sendPostReq(path,params, isHttps,new HashMap<String,Object>());
+	public static String sendPostString(String path,String params,boolean isHttps){
+		return sendPostString(path,params, isHttps,new HashMap<String,Object>());
 	}
 	/**
 	 * 
@@ -102,8 +102,8 @@ public class HttpPostUtils {
 	 * @time 2016年1月22日上午11:08:26
 	 * @version 1.0
 	 */
-	public static String sendPostReq(String path,String params){
-		return sendPostReq(path,params,true,new HashMap<String,Object>());
+	public static String sendPostString(String path,String params){
+		return sendPostString(path,params,true,new HashMap<String,Object>());
 	}
 	public static HttpResponse sendPost(String path,Map<String,Object> header){
 		return sendPost(path,new HashMap<String, Object>(),true,header);

@@ -45,7 +45,7 @@ public class TestAES {
 	    
 	    try {
 	    	System.out.println(sb2.toString());
-			String result = HttpPostUtils.sendPostReq(url, sb2.toString());
+			String result = HttpPostUtils.sendPostString(url, sb2.toString());
 			System.out.println(result);
 		} catch(Exception e){
 			e.printStackTrace();
